@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<WydarzeniaContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("SuperHeroesDB")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("DomKulturyDB")));
 
 var app = builder.Build();
 
