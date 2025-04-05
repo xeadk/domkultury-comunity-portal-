@@ -9,6 +9,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<WydarzeniaContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DomKulturyDB")));
 
+// dla drugiego kontekstu równie¿
+builder.Services.AddDbContext<UczestnicyContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("DomKulturyDB")));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
