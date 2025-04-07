@@ -1,9 +1,10 @@
 ﻿using DomKultury.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DomKultury.Data
 {
-    public class UczestnicyContext : DbContext
+    public class UczestnicyContext : IdentityDbContext
     {
         public UczestnicyContext(DbContextOptions<UczestnicyContext> options) : base(options) { }
 
@@ -30,6 +31,7 @@ namespace DomKultury.Data
                 .HasOne(z => z.Instruktor)
                 .WithMany(i => i.Zajecia)
                 .HasForeignKey(z => z.InstruktorId);
+            base.OnModelCreating(modelBuilder); //logowanie
         }
     }
 }

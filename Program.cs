@@ -1,4 +1,5 @@
 using DomKultury.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,9 +10,30 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<WydarzeniaContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DomKulturyDB")));
 
-// dla drugiego kontekstu równie¿
+// dla drugiego kontekstu rï¿½wnieï¿½
 builder.Services.AddDbContext<UczestnicyContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DomKulturyDB")));
+
+builder.Services.AddMemoryCache(); //buildery sesji
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(30); // 30 sek aby dzialo git rel
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+builder.Services.AddDefaultIdentity<IdentityUser> //logowanie
+(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+})
+.AddEntityFrameworkStores<UczestnicyContext>();
+
 
 var app = builder.Build();
 
@@ -28,10 +50,17 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+
+app.UseAuthentication();
 app.UseAuthorization();
+
+
+app.UseSession(); // to ma byc pod UseRouting i UseAuthorization
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages(); //obsluga RazorPage
 
 app.Run();

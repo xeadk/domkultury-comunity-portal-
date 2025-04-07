@@ -13,6 +13,11 @@ namespace DomKultury.Controllers
             _logger = logger;
         }
 
+        public IActionResult SavedInSession() //sesja
+        {
+            return View();
+        }
+
         public IActionResult Index()
         {
             return View();
