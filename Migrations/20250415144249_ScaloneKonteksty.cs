@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DomKultury.Migrations.Uczestnicy
+namespace DomKultury.Migrations
 {
     /// <inheritdoc />
-    public partial class DodanieTabelOdZajec : Migration
+    public partial class ScaloneKonteksty : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

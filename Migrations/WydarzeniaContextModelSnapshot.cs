@@ -22,6 +22,31 @@ namespace DomKultury.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("DomKultury.Models.Instruktor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Imie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nazwisko")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Instruktor");
+                });
+
             modelBuilder.Entity("DomKultury.Models.Kategoria", b =>
                 {
                     b.Property<int>("Id")
@@ -37,6 +62,38 @@ namespace DomKultury.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Kategoria");
+                });
+
+            modelBuilder.Entity("DomKultury.Models.Uczestnik", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DataRejestracji")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Imie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nazwisko")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumerTelefonu")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Uczestnik");
                 });
 
             modelBuilder.Entity("DomKultury.Models.Wydarzenie", b =>
@@ -81,6 +138,60 @@ namespace DomKultury.Migrations
                     b.ToTable("Wydarzenie");
                 });
 
+            modelBuilder.Entity("DomKultury.Models.Zajecie", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Cena")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("InstruktorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Lokalizacja")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MaksymalnaLiczbaUczestnikow")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nazwa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Opis")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Termin")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InstruktorId");
+
+                    b.ToTable("Zajecie");
+                });
+
+            modelBuilder.Entity("UczestnikZajecie", b =>
+                {
+                    b.Property<int>("UczestnikId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ZajecieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UczestnikId", "ZajecieId");
+
+                    b.HasIndex("ZajecieId");
+
+                    b.ToTable("UczestnikZajecie");
+                });
+
             modelBuilder.Entity("DomKultury.Models.Wydarzenie", b =>
                 {
                     b.HasOne("DomKultury.Models.Kategoria", "Kategoria")
@@ -90,6 +201,37 @@ namespace DomKultury.Migrations
                         .IsRequired();
 
                     b.Navigation("Kategoria");
+                });
+
+            modelBuilder.Entity("DomKultury.Models.Zajecie", b =>
+                {
+                    b.HasOne("DomKultury.Models.Instruktor", "Instruktor")
+                        .WithMany("Zajecia")
+                        .HasForeignKey("InstruktorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Instruktor");
+                });
+
+            modelBuilder.Entity("UczestnikZajecie", b =>
+                {
+                    b.HasOne("DomKultury.Models.Uczestnik", null)
+                        .WithMany()
+                        .HasForeignKey("UczestnikId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DomKultury.Models.Zajecie", null)
+                        .WithMany()
+                        .HasForeignKey("ZajecieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DomKultury.Models.Instruktor", b =>
+                {
+                    b.Navigation("Zajecia");
                 });
 
             modelBuilder.Entity("DomKultury.Models.Kategoria", b =>
