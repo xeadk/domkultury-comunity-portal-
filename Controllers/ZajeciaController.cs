@@ -1,44 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using DomKultury.Models;
-using System;
-using System.Collections.Generic;
+using DomKultury.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace DomKultury.Controllers
 {
     [Route("Zajecia")]
     public class ZajeciaController : Controller
     {
+        private readonly WydarzeniaContext _context;
+
+        public ZajeciaController(WydarzeniaContext context)
+        {
+            _context = context;
+        }
+
         // GET: Zajecia
         [HttpGet("")]
         public IActionResult Index()
         {
-            var zajecia = new List<Zajecie>
-            {
-                new Zajecie
-                {
-                    Id = 1,
-                    Nazwa = "Zajęcia Taneczne",
-                    Opis = "Zajęcia taneczne dla wszystkich grup wiekowych",
-                    Termin = DateTime.Parse("2023-10-23 18:00"),
-                    Lokalizacja = "Sala A",
-                    Cena = 50.00m,
-                    MaksymalnaLiczbaUczestnikow = 20,
-                    InstruktorId = 1
-                },
-                new Zajecie
-                {
-                    Id = 2,
-                    Nazwa = "Plastyka dla dzieci",
-                    Opis = "Zajęcia plastyczne dla dzieci w wieku 6-12 lat",
-                    Termin = DateTime.Parse("2023-10-24 16:00"),
-                    Lokalizacja = "Sala B",
-                    Cena = 40.00m,
-                    MaksymalnaLiczbaUczestnikow = 15,
-                    InstruktorId = 2
-                }
-            };
-
-            // Przekazanie listy do widoku
+            var zajecia = _context.Zajecie.ToList(); // <-- teraz pobieramy z bazy
             return View(zajecia);
         }
 
@@ -46,17 +28,11 @@ namespace DomKultury.Controllers
         [HttpGet("Zapisz/{id}")]
         public IActionResult Zapisz(int id)
         {
-            var zajecie = new Zajecie
+            var zajecie = _context.Zajecie.FirstOrDefault(z => z.Id == id);
+            if (zajecie == null)
             {
-                Id = id,
-                Nazwa = "Zajęcia (przykład)", // Można podmienić, jeśli masz dane z bazy
-                Opis = "Opis zajęć",
-                Termin = DateTime.Now,
-                Lokalizacja = "Sala A",
-                Cena = 50.00m,
-                MaksymalnaLiczbaUczestnikow = 20,
-                InstruktorId = 1
-            };
+                return NotFound();
+            }
 
             var model = new ZapisViewModel
             {
@@ -70,13 +46,60 @@ namespace DomKultury.Controllers
         [HttpPost("Zapisz/{id}")]
         public IActionResult Zapisz(int id, ZapisViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
+                return View(model);
+            }
+
+            var zajecie = _context.Zajecie
+                .Include(z => z.Uczestnicy)
+                .FirstOrDefault(z => z.Id == id);
+
+            if (zajecie == null)
+            {
+                return NotFound();
+            }
+
+            // Szukamy, czy istnieje już uczestnik o tym samym emailu
+            var istniejącyUczestnik = _context.Uczestnik
+                .Include(u => u.Zajecia)
+                .FirstOrDefault(u => u.Email == model.Email);
+
+            if (istniejącyUczestnik != null)
+            {
+                // Sprawdzamy, czy już zapisany na to zajęcie
+                bool juzZapisany = istniejącyUczestnik.Zajecia.Any(z => z.Id == id);
+                if (juzZapisany)
+                {
+                    ModelState.AddModelError(string.Empty, "Już jesteś zapisany na te zajęcia.");
+                    return View(model);
+                }
+
+                // Jeśli nie zapisany, dodajemy go do zajęć
+                istniejącyUczestnik.Zajecia.Add(zajecie);
+                _context.SaveChanges();
+
                 TempData["Komunikat"] = "Zostałeś zapisany na zajęcia!";
                 return RedirectToAction("Index");
             }
 
-            return View(model);
+            // Jeśli uczestnik nie istnieje, tworzymy nowego
+            var uczestnik = new Uczestnik
+            {
+                Imie = model.Imie,
+                Nazwisko = model.Nazwisko,
+                Email = model.Email,
+                NumerTelefonu = model.NumerTelefonu,
+                DataRejestracji = DateTime.Now,
+                Zajecia = new List<Zajecie> { zajecie }
+            };
+
+            _context.Uczestnik.Add(uczestnik);
+            _context.SaveChanges();
+
+            TempData["Komunikat"] = "Zostałeś zapisany na zajęcia!";
+            return RedirectToAction("Index");
         }
+
     }
 }
