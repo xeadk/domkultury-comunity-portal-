@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DomKultury.Migrations.Uczestnicy
+namespace DomKultury.Migrations
 {
-    [DbContext(typeof(UczestnicyContext))]
-    [Migration("20250405155437_DodanieTabelOdZajec")]
-    partial class DodanieTabelOdZajec
+    [DbContext(typeof(WydarzeniaContext))]
+    [Migration("20250415144249_ScaloneKonteksty")]
+    partial class ScaloneKonteksty
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,23 @@ namespace DomKultury.Migrations.Uczestnicy
                     b.ToTable("Instruktor");
                 });
 
+            modelBuilder.Entity("DomKultury.Models.Kategoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nazwa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Kategoria");
+                });
+
             modelBuilder.Entity("DomKultury.Models.Uczestnik", b =>
                 {
                     b.Property<int>("Id")
@@ -80,6 +97,48 @@ namespace DomKultury.Migrations.Uczestnicy
                     b.HasKey("Id");
 
                     b.ToTable("Uczestnik");
+                });
+
+            modelBuilder.Entity("DomKultury.Models.Wydarzenie", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("KategoriaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Lokalizacja")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Nazwa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Opis")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Organizator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KategoriaId");
+
+                    b.ToTable("Wydarzenie");
                 });
 
             modelBuilder.Entity("DomKultury.Models.Zajecie", b =>
@@ -136,6 +195,17 @@ namespace DomKultury.Migrations.Uczestnicy
                     b.ToTable("UczestnikZajecie");
                 });
 
+            modelBuilder.Entity("DomKultury.Models.Wydarzenie", b =>
+                {
+                    b.HasOne("DomKultury.Models.Kategoria", "Kategoria")
+                        .WithMany("Wydarzenia")
+                        .HasForeignKey("KategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kategoria");
+                });
+
             modelBuilder.Entity("DomKultury.Models.Zajecie", b =>
                 {
                     b.HasOne("DomKultury.Models.Instruktor", "Instruktor")
@@ -165,6 +235,11 @@ namespace DomKultury.Migrations.Uczestnicy
             modelBuilder.Entity("DomKultury.Models.Instruktor", b =>
                 {
                     b.Navigation("Zajecia");
+                });
+
+            modelBuilder.Entity("DomKultury.Models.Kategoria", b =>
+                {
+                    b.Navigation("Wydarzenia");
                 });
 #pragma warning restore 612, 618
         }

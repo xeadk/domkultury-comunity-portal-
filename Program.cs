@@ -10,10 +10,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<WydarzeniaContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DomKulturyDB")));
 
-// dla drugiego kontekstu r�wnie�
-builder.Services.AddDbContext<UczestnicyContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DomKulturyDB")));
-
 builder.Services.AddMemoryCache(); //buildery sesji
 builder.Services.AddSession(options =>
 {
@@ -32,7 +28,7 @@ builder.Services.AddDefaultIdentity<IdentityUser> //logowanie
     options.Password.RequireUppercase = false;
     options.Password.RequireLowercase = false;
 })
-.AddEntityFrameworkStores<UczestnicyContext>();
+.AddEntityFrameworkStores<WydarzeniaContext>();
 
 
 var app = builder.Build();
@@ -62,5 +58,13 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages(); //obsluga RazorPage
+
+// wywołanie seedera do bazy danych
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<WydarzeniaContext>();
+    DbInitializer.Seed(context);
+}
 
 app.Run();

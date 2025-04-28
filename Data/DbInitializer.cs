@@ -1,0 +1,103 @@
+﻿using DomKultury.Models;
+
+namespace DomKultury.Data
+{
+    public static class DbInitializer
+    {
+        public static void Seed(WydarzeniaContext context)
+        {
+            if (context.Instruktor.Any()) return; // Seeder już odpalony
+
+            // Instruktorzy
+            var instruktorzy = new List<Instruktor>
+            {
+                new Instruktor { Imie = "Jan", Nazwisko = "Kowalski", Email = "jan@domkultury.pl" },
+                new Instruktor { Imie = "Anna", Nazwisko = "Nowak", Email = "anna@domkultury.pl" }
+            };
+            context.Instruktor.AddRange(instruktorzy);
+            context.SaveChanges();
+
+            // Zajęcia
+            var zajecia = new List<Zajecie>
+            {
+                new Zajecie {
+                    Nazwa = "Taniec nowoczesny",
+                    Opis = "Zajęcia z tańca nowoczesnego",
+                    Termin = DateTime.Now.AddDays(5),
+                    Lokalizacja = "Sala A",
+                    Cena = 60m,
+                    MaksymalnaLiczbaUczestnikow = 20,
+                    InstruktorId = instruktorzy[0].Id
+                },
+                new Zajecie {
+                    Nazwa = "Plastyka dla dzieci",
+                    Opis = "Zajęcia artystyczne",
+                    Termin = DateTime.Now.AddDays(7),
+                    Lokalizacja = "Sala B",
+                    Cena = 40m,
+                    MaksymalnaLiczbaUczestnikow = 15,
+                    InstruktorId = instruktorzy[1].Id
+                }
+            };
+            context.Zajecie.AddRange(zajecia);
+            context.SaveChanges();
+
+            // Uczestnicy
+            var uczestnicy = new List<Uczestnik>
+            {
+                new Uczestnik {
+                    Imie = "Mateusz",
+                    Nazwisko = "Kwiatkowski",
+                    Email = "mateusz@example.com",
+                    NumerTelefonu = "123456789",
+                    DataRejestracji = DateTime.Now,
+                    Zajecia = new List<Zajecie> { zajecia[0] }
+                },
+                new Uczestnik {
+                    Imie = "Ola",
+                    Nazwisko = "Zielińska",
+                    Email = "ola@example.com",
+                    NumerTelefonu = "987654321",
+                    DataRejestracji = DateTime.Now,
+                    Zajecia = new List<Zajecie> { zajecia[1], zajecia[0] }
+                }
+            };
+            context.Uczestnik.AddRange(uczestnicy);
+            context.SaveChanges();
+
+            // Kategorie
+            var kategorie = new List<Kategoria>
+            {
+                new Kategoria { Nazwa = "Muzyka" },
+                new Kategoria { Nazwa = "Teatr" },
+            };
+            context.Kategoria.AddRange(kategorie);
+            context.SaveChanges();
+
+            // Wydarzenia
+            var wydarzenia = new List<Wydarzenie>
+            {
+                new Wydarzenie {
+                    Nazwa = "Koncert jazzowy",
+                    KategoriaId = context.Kategoria.First(k => k.Nazwa == "Muzyka").Id, // Przypisanie kategorii
+                    Organizator = "Dom Kultury",
+                    Data = DateTime.Now.AddDays(10),
+                    Lokalizacja = "Sala koncertowa",
+                    Opis = "Wieczór z muzyką jazzową",
+                    Status = true
+                },
+                new Wydarzenie {
+                    Nazwa = "Spektakl dla dzieci",
+                    KategoriaId = context.Kategoria.First(k => k.Nazwa == "Teatr").Id, // Przypisanie kategorii
+                    Organizator = "Teatrzyk XYZ",
+                    Data = DateTime.Now.AddDays(15),
+                    Lokalizacja = "Sala teatralna",
+                    Opis = "Wesoły spektakl dla najmłodszych",
+                    Status = true
+                }
+            };
+            context.Wydarzenie.AddRange(wydarzenia);
+            context.SaveChanges();
+        }
+    }
+}
