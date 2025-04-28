@@ -1,27 +1,44 @@
 ﻿@model List<DomKultury.Models.Zajecie>
 
 @{
-    ViewData["Title"] = "Zajęcia";
+    ViewData["Title"] = "Zajęcia w Domu Kultury";
 }
 
-<h1>Zajęcia w Domu Kultury</h1>
+<div class="container py-5">
+    <h2 class="text-center mb-4">@ViewData["Title"]</h2>
 
-<div class="container">
-    <div class="row">
-        @foreach (var zajecie in Model)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">@zajecie.Nazwa</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">@zajecie.Lokalizacja</h6>
-                        <p class="card-text">@zajecie.Opis</p>
-                        <p><strong>Termin:</strong> @zajecie.Termin.ToString("dddd, dd MMMM yyyy") @zajecie.Termin.ToString("HH:mm")</p>
-                        <p><strong>Cena:</strong> @zajecie.Cena.ToString("C")</p>
-                        <p><strong>Liczba uczestników:</strong> @zajecie.MaksymalnaLiczbaUczestnikow</p>
+    @if (TempData["Komunikat"] != null)
+    {
+        <div class="alert alert-success text-center">
+            @TempData["Komunikat"]
+        </div>
+    }
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var zajecie in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@zajecie.Nazwa</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@zajecie.Lokalizacja</h6>
+                            <p class="card-text">@zajecie.Opis</p>
+                            <ul class="list-unstyled">
+                                <li><strong>Termin:</strong> @zajecie.Termin.ToString("dddd, dd MMMM yyyy") o @zajecie.Termin.ToString("HH:mm")</li>
+                                <li><strong>Cena:</strong> @zajecie.Cena zł</li>
+                                <li><strong>Maks. uczestników:</strong> @zajecie.MaksymalnaLiczbaUczestnikow</li>
+                            </ul>
+                            <a asp-action="Zapisz" asp-route-id="@zajecie.Id" class="btn btn-primary mt-3 w-100">Zapisz się</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="text-center mt-4">Brak dostępnych zajęć w tej chwili.</p>
+    }
 </div>
