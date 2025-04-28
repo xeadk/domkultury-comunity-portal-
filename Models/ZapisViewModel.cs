@@ -16,5 +16,8 @@ namespace DomKultury.Models
         [Required(ErrorMessage = "Email jest wymagany.")]
         [EmailAddress(ErrorMessage = "Nieprawidłowy adres email.")]
         public string Email { get; set; }
+
+        [Required]
+        public string NumerTelefonu { get; set; }
     }
 }
