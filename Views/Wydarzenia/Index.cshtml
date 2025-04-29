@@ -1,0 +1,33 @@
+﻿@model List<DomKultury.Models.Wydarzenie>
+
+@{
+    ViewData["Title"] = "Wydarzenia";
+}
+
+<h2>Wydarzenia</h2>
+
+@if (Model.Any())
+{
+    <div class="row">
+        @foreach (var wydarzenie in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card border-warning">
+                    <div class="card-body">
+                        <h5 class="card-title">@wydarzenie.Nazwa</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@wydarzenie.Kategoria?.Nazwa</h6>
+                        <p class="card-text">@wydarzenie.Opis</p>
+                        <p><strong>Data:</strong> @wydarzenie.Data.ToString("dd.MM.yyyy")</p>
+                        <p><strong>Lokalizacja:</strong> @wydarzenie.Lokalizacja</p>
+                        <p><strong>Organizator:</strong> @wydarzenie.Organizator</p>
+                        <p><strong>Status:</strong> @(wydarzenie.Status ? "Zaplanowane" : "Odwołane")</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>Brak zaplanowanych wydarzeń.</p>
+}
