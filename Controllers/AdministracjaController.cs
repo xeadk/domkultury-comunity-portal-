@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DomKultury.Controllers
 {
-    public class TestController : Controller
+    public class AdministracjaController : Controller
     {
         private readonly WydarzeniaContext _context;
 
-        public TestController(WydarzeniaContext context)
+        public AdministracjaController(WydarzeniaContext context)
         {
             _context = context;
         }
