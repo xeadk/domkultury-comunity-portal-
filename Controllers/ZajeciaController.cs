@@ -20,7 +20,10 @@ namespace DomKultury.Controllers
         [HttpGet("")]
         public IActionResult Index()
         {
-            var zajecia = _context.Zajecie.ToList(); // <-- teraz pobieramy z bazy
+            var zajecia = _context.Zajecie
+            .Include(z => z.Instruktor) // EF Core dociąga instruktora
+            .ToList();
+
             return View(zajecia);
         }
 

@@ -12,7 +12,12 @@
         @foreach (var wydarzenie in Model)
         {
             <div class="col-md-4 mb-4">
-                <div class="card border-warning">
+                <div class="card h-100">
+                    @if (!string.IsNullOrEmpty(wydarzenie.ObrazekUrl))
+                    {
+                        <img src="@wydarzenie.ObrazekUrl" class="card-img-top" style="max-height: 200px; object-fit: cover;"
+                        alt = "Zdjęcie wydarzenia" >
+                    }
                     <div class="card-body">
                         <h5 class="card-title">@wydarzenie.Nazwa</h5>
                         <h6 class="card-subtitle mb-2 text-muted">@wydarzenie.Kategoria?.Nazwa</h6>
@@ -24,6 +29,7 @@
                     </div>
                 </div>
             </div>
+
         }
     </div>
 }

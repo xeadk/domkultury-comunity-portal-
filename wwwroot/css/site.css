@@ -1,22 +1,124 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+:root {
+    --deep-purple: #4c219c;
+    --mid-purple: #652cd0;
+    --lavender: #8759dc;
+    --light-lavender: #ad8de7;
+    --pastel-purple: #cfbcf1;
+    --off-white: #fbfafe;
 }
 
 body {
-  margin-bottom: 60px;
+    background-color: var(--off-white);
+    color: var(--deep-purple);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+    color: var(--deep-purple);
+}
+
+/* Nawigacja */
+.navbar {
+    background-color: var(--light-lavender);
+}
+
+.nav-link, .navbar-brand {
+    color: var(--deep-purple) !important;
+}
+
+/* Przyciski */
+.btn-primary {
+    background-color: var(--mid-purple);
+    border-color: var(--mid-purple);
+}
+
+    .btn-primary:hover {
+        background-color: var(--lavender);
+        border-color: var(--lavender);
+    }
+
+/* Hero sekcja */
+.hero-section {
+    background: linear-gradient(135deg, var(--mid-purple), var(--light-lavender), var(--pastel-purple));
+    color: white;
+    border-bottom: 4px solid var(--lavender);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Fancy karty (Zajêcia i Wydarzenia) */
+.fancy-card {
+    background: white;
+    border-left: 6px solid var(--deep-purple);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+    .fancy-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+/* Event karty */
+.event-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border-left: 6px solid var(--lavender);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+    .event-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+/* Karty ogólne */
+.card {
+    background-color: white;
+    border-radius: 1rem;
+    border: 2px solid var(--mid-purple);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
+
+.card-title {
+    color: var(--deep-purple);
+}
+
+.card-body {
+    background-color: var(--off-white);
+}
+
+/* Stopka */
+footer {
+    background-color: var(--deep-purple);
+    color: var(--off-white);
+    padding: 2rem 0;
+    font-size: 0.9rem;
+}
+
+    footer a {
+        color: var(--pastel-purple);
+        text-decoration: none;
+    }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+/* Animacje */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
