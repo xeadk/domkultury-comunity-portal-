@@ -21,10 +21,19 @@
             {
                 <div class="col">
                     <div class="card h-100 shadow-sm">
+                        @if (!string.IsNullOrEmpty(zajecie.ObrazekUrl))
+                        {
+                            <img src="@zajecie.ObrazekUrl" class="card-img-top" style="max-height: 200px; object-fit: cover;"
+                            alt = "Zdjęcie zajęć" >
+                        }
                         <div class="card-body">
                             <h5 class="card-title">@zajecie.Nazwa</h5>
                             <h6 class="card-subtitle mb-2 text-muted">@zajecie.Lokalizacja</h6>
                             <p class="card-text">@zajecie.Opis</p>
+                            @if (zajecie.Instruktor != null)
+                            {
+                                <p><strong>Prowadzący:</strong> @zajecie.Instruktor.Imie @zajecie.Instruktor.Nazwisko</p>
+                            }
                             <ul class="list-unstyled">
                                 <li><strong>Termin:</strong> @zajecie.Termin.ToString("dddd, dd MMMM yyyy") o @zajecie.Termin.ToString("HH:mm")</li>
                                 <li><strong>Cena:</strong> @zajecie.Cena zł</li>
@@ -34,6 +43,7 @@
                         </div>
                     </div>
                 </div>
+
             }
         </div>
     }

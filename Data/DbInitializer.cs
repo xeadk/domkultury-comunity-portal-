@@ -27,7 +27,8 @@ namespace DomKultury.Data
                     Lokalizacja = "Sala A",
                     Cena = 60m,
                     MaksymalnaLiczbaUczestnikow = 20,
-                    InstruktorId = instruktorzy[0].Id
+                    InstruktorId = instruktorzy[0].Id,
+                    ObrazekUrl = "https://lh5.googleusercontent.com/proxy/BtJtcjsdSu79jlXEKl8qYza-90cCIZIutxtQojUIYy6IEkmyAXyedlatRv_-rNdFoljS9kfmmOe_915AeQZQUOy8CvGSzc60U8a_D01ertwKdwTKSDTRj0g5pKus"
                 },
                 new Zajecie {
                     Nazwa = "Plastyka dla dzieci",
@@ -36,7 +37,8 @@ namespace DomKultury.Data
                     Lokalizacja = "Sala B",
                     Cena = 40m,
                     MaksymalnaLiczbaUczestnikow = 15,
-                    InstruktorId = instruktorzy[1].Id
+                    InstruktorId = instruktorzy[1].Id,
+                    ObrazekUrl = "https://mojedziecikreatywnie.pl/wp-content/uploads/2015/12/maski-12-1000x620.jpg"
                 }
             };
             context.Zajecie.AddRange(zajecia);
@@ -84,7 +86,8 @@ namespace DomKultury.Data
                     Data = DateTime.Now.AddDays(10),
                     Lokalizacja = "Sala koncertowa",
                     Opis = "Wieczór z muzyką jazzową",
-                    Status = true
+                    Status = true,
+                    ObrazekUrl = "https://i.ytimg.com/vi/09sPm7ygjHE/maxresdefault.jpg"
                 },
                 new Wydarzenie {
                     Nazwa = "Spektakl dla dzieci",
@@ -93,7 +96,8 @@ namespace DomKultury.Data
                     Data = DateTime.Now.AddDays(15),
                     Lokalizacja = "Sala teatralna",
                     Opis = "Wesoły spektakl dla najmłodszych",
-                    Status = true
+                    Status = true,
+                    ObrazekUrl = "https://teatrkatarynka.pl/wp-content/uploads/2025/02/Teatr-Katarynka-Spektakl-dla-dzieci-W-Labiryncie-Niewypowiedzianych-Emocji-Sekretny-Klucz-do-Zrozumienia-46-1024x576.jpeg"
                 }
             };
             context.Wydarzenie.AddRange(wydarzenia);

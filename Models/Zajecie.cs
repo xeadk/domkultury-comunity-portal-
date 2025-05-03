@@ -16,6 +16,8 @@
 
         // Relacja One-to-Many z Uczestnikami
         public ICollection<Uczestnik> Uczestnicy { get; set; } = new List<Uczestnik>();
+        public string? ObrazekUrl { get; set; } // Ścieżka lub URL do obrazka
+
     }
 
 }

@@ -64,6 +64,8 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<WydarzeniaContext>();
+    context.Database.EnsureDeleted(); // usuwa bazę
+    context.Database.EnsureCreated(); // tworzy na nowo
     DbInitializer.Seed(context);
 }
 

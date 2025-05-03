@@ -28,5 +28,8 @@ namespace DomKultury.Models
         public string Opis { get; set; }
 
         public bool Status { get; set; } // True - zaplanowane, False - odwołane
+
+        public string? ObrazekUrl { get; set; } // Ścieżka lub URL do obrazka
+
     }
 }
