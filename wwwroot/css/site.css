@@ -13,8 +13,12 @@ body {
     font-family: 'Segoe UI', sans-serif;
 }
 
-h1, h2, h3, h4, h5 {
+h2, h3, h4, h5 {
     color: var(--deep-purple);
+}
+
+h1 {
+    color: var(--off-white);
 }
 
 /* Nawigacja */
@@ -28,8 +32,8 @@ h1, h2, h3, h4, h5 {
 
 /* Przyciski */
 .btn-primary {
-    background-color: var(--mid-purple);
-    border-color: var(--mid-purple);
+    background-color: var(--lavender);
+    border-color: var(--lavender);
 }
 
     .btn-primary:hover {
