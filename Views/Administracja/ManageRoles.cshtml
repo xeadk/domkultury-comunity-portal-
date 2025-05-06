@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model DomKultury.Models.ManageRolesViewModel
+@inject UserManager<IdentityUser> UserManager
+
+<h2>Zarządzanie rolami użytkowników</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Użytkownik</th>
+            <th>Obecna rola</th>
+            <th>Nowa rola</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            var currentRole = UserManager.GetRolesAsync(user).Result.FirstOrDefault();
+            <tr>
+                <td>@user.Email</td>
+                <td>@currentRole</td>
+                <td>
+                    <form asp-action="UpdateUserRole" method="post">
+                        <input type="hidden" name="userId" value="@user.Id" />
+                        <select name="roleName" class="form-select">
+                            <option value="">Brak</option>
+                            @foreach (var role in Model.Roles)
+                            {
+                                <option value="@role.Name" selected="@(currentRole == role.Name ? "selected" : null)">@role.Name</option>
+
+                            }
+                        </select>
+                        <button type="submit" class="btn btn-primary mt-2">Zapisz</button>
+                    </form>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
