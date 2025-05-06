@@ -1,0 +1,48 @@
+﻿@model List<DomKultury.Models.Konkurs>
+
+@{
+    ViewData["Title"] = "Konkursy";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">@ViewData["Title"]</h2>
+
+    @if (TempData["Komunikat"] != null)
+    {
+        <div class="alert alert-success text-center">
+            @TempData["Komunikat"]
+        </div>
+    }
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var konkurs in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        @if (!string.IsNullOrEmpty(konkurs.ObrazekUrl))
+                        {
+                            <img src="@konkurs.ObrazekUrl" class="card-img-top" style="max-height: 200px; object-fit: cover;"
+                                 alt="Zdjęcie konkursu">
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@konkurs.Nazwa</h5>
+                            <p class="card-text">@konkurs.Opis</p>
+                            <ul class="list-unstyled">
+                                <li><strong>Data zakończenia:</strong> @konkurs.Termin.ToString("dddd, dd MMMM yyyy")</li>
+                                <li><strong>Organizator:</strong> @konkurs.Organizator</li>
+                                <li><strong>Cena:</strong> @konkurs.Cena zł</li>
+                            </ul>
+                            <a asp-action="Zapisz" asp-route-id="@konkurs.Id" class="btn btn-primary mt-3 w-100">Zapisz się</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="text-center mt-4">Brak dostępnych konkursów w tej chwili.</p>
+    }
+</div>

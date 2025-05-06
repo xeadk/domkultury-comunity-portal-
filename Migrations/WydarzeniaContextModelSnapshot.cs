@@ -44,7 +44,7 @@ namespace DomKultury.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Instruktor");
+                    b.ToTable("Instruktor", (string)null);
                 });
 
             modelBuilder.Entity("DomKultury.Models.Kategoria", b =>
@@ -61,7 +61,7 @@ namespace DomKultury.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Kategoria");
+                    b.ToTable("Kategoria", (string)null);
                 });
 
             modelBuilder.Entity("DomKultury.Models.Uczestnik", b =>
@@ -93,7 +93,7 @@ namespace DomKultury.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Uczestnik");
+                    b.ToTable("Uczestnik", (string)null);
                 });
 
             modelBuilder.Entity("DomKultury.Models.Wydarzenie", b =>
@@ -138,7 +138,7 @@ namespace DomKultury.Migrations
 
                     b.HasIndex("KategoriaId");
 
-                    b.ToTable("Wydarzenie");
+                    b.ToTable("Wydarzenie", (string)null);
                 });
 
             modelBuilder.Entity("DomKultury.Models.Zajecie", b =>
@@ -180,7 +180,7 @@ namespace DomKultury.Migrations
 
                     b.HasIndex("InstruktorId");
 
-                    b.ToTable("Zajecie");
+                    b.ToTable("Zajecie", (string)null);
                 });
 
             modelBuilder.Entity("UczestnikZajecie", b =>
@@ -195,7 +195,7 @@ namespace DomKultury.Migrations
 
                     b.HasIndex("ZajecieId");
 
-                    b.ToTable("UczestnikZajecie");
+                    b.ToTable("UczestnikZajecie", (string)null);
                 });
 
             modelBuilder.Entity("DomKultury.Models.Wydarzenie", b =>
