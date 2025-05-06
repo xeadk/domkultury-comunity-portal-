@@ -1,18 +1,61 @@
 ﻿using DomKultury.Data;
 using DomKultury.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DomKultury.Controllers
 {
     public class AdministracjaController : Controller
     {
         private readonly WydarzeniaContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AdministracjaController(WydarzeniaContext context)
+
+        public AdministracjaController(WydarzeniaContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
+            _userManager = userManager;
+            _roleManager = roleManager;
             _context = context;
         }
+
+        public async Task<IActionResult> ManageRoles()
+        {
+            var users = _userManager.Users.ToList();
+            var roles = _roleManager.Roles.ToList();
+
+            var model = new ManageRolesViewModel
+            {
+                Users = users,
+                Roles = roles
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateUserRole(string userId, string roleName)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return NotFound(); // Zwróć 404, jeśli użytkownik nie istnieje
+
+            var currentRoles = await _userManager.GetRolesAsync(user);
+            await _userManager.RemoveFromRolesAsync(user, currentRoles);
+
+            if (!string.IsNullOrEmpty(roleName))
+            {
+                await _userManager.AddToRoleAsync(user, roleName);
+            }
+
+            return RedirectToAction(nameof(ManageRoles)); // Zwróć przekierowanie po zakończeniu
+        }
+
+
+
 
         public IActionResult Index()
         {

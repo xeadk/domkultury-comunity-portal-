@@ -10,6 +10,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<WydarzeniaContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DomKulturyDB")));
 
+
+
 builder.Services.AddMemoryCache(); //buildery sesji
 builder.Services.AddSession(options =>
 {
@@ -28,6 +30,7 @@ builder.Services.AddDefaultIdentity<IdentityUser> //logowanie
     options.Password.RequireUppercase = false;
     options.Password.RequireLowercase = false;
 })
+.AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<WydarzeniaContext>();
 
 
@@ -64,9 +67,10 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<WydarzeniaContext>();
-    context.Database.EnsureDeleted(); // usuwa bazę
-    context.Database.EnsureCreated(); // tworzy na nowo
-    DbInitializer.Seed(context);
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+
+    DbInitializer.Seed(context, roleManager, userManager);
 }
 
 app.Run();
