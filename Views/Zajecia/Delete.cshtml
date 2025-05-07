@@ -1,0 +1,18 @@
+﻿@model DomKultury.Models.Zajecie
+@{
+    ViewData["Title"] = "Usuń zajęcie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Czy na pewno chcesz usunąć to zajęcie?</h2>
+
+<div>
+    <h4>@Model.Nazwa</h4>
+    <p>@Model.Opis</p>
+</div>
+
+<form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Usuń</button>
+    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+</form>
