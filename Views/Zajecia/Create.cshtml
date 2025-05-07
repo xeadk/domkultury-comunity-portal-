@@ -1,0 +1,66 @@
+﻿@model DomKultury.Models.Zajecie
+@{
+    ViewData["Title"] = "Dodaj zajęcie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<h2>Dodaj nowe zajęcie</h2>
+
+<form asp-action="Create" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label asp-for="Nazwa"></label>
+        <input asp-for="Nazwa" class="form-control" />
+        <span asp-validation-for="Nazwa" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Opis"></label>
+        <textarea asp-for="Opis" class="form-control"></textarea>
+        <span asp-validation-for="Opis" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Termin"></label>
+        <input asp-for="Termin" class="form-control" type="datetime-local" />
+        <span asp-validation-for="Termin" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Lokalizacja"></label>
+        <input asp-for="Lokalizacja" class="form-control" />
+        <span asp-validation-for="Lokalizacja" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Cena"></label>
+        <input asp-for="Cena" class="form-control" type="number" step="0.01" />
+        <span asp-validation-for="Cena" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MaksymalnaLiczbaUczestnikow"></label>
+        <input asp-for="MaksymalnaLiczbaUczestnikow" class="form-control" />
+        <span asp-validation-for="MaksymalnaLiczbaUczestnikow" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="InstruktorId">Instruktor</label>
+        <select asp-for="InstruktorId" class="form-control"
+                asp-items="@(new SelectList(ViewBag.Instruktorzy, "Id", "Imie"))">
+            <option value="">-- Wybierz instruktora --</option>
+        </select>
+        <span asp-validation-for="InstruktorId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Obrazek">Zdjęcie</label>
+        <input type="file" name="Obrazek" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Dodaj</button>
+    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

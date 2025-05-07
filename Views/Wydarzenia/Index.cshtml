@@ -5,6 +5,15 @@
 }
 
 <h2>Wydarzenia</h2>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+@inject RoleManager<IdentityRole> RoleManager
+
+@if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+{
+    <a asp-action="Create" class="btn btn-primary mb-3">Dodaj nowe</a>
+}
 
 @if (Model.Any())
 {

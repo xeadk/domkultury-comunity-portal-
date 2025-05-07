@@ -1,4 +1,6 @@
-﻿namespace DomKultury.Models
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
+namespace DomKultury.Models
 {
     public class Zajecie
     {
@@ -12,6 +14,7 @@
 
         // Relacja One-to-Many z Instruktorem
         public int InstruktorId { get; set; } // Klucz obcy do Instruktora
+        [ValidateNever]
         public virtual Instruktor Instruktor { get; set; } // Nawigacja do Instruktora
 
         // Relacja One-to-Many z Uczestnikami
