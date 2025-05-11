@@ -22,7 +22,6 @@
         color: var(--deep-purple) !important;
     }
 
-
 body {
     background-color: var(--off-white);
     color: var(--deep-purple);
@@ -66,7 +65,7 @@ h1 {
     animation: fadeIn 1.5s ease-in-out;
 }
 
-/* Fancy karty (Zajêcia i Wydarzenia) */
+/* Fancy karty (Zajęcia i Wydarzenia) */
 .fancy-card {
     background: white;
     border-left: 6px solid var(--deep-purple);
@@ -163,11 +162,11 @@ footer {
     }
 
     .weather-bar .icon {
-        width: 32px; /* Nowy rozmiar ikony */
+        width: 32px;
         height: 32px;
     }
 
-/* Pasek nawgiacyjny */
+/* Pasek nawigacyjny */
 
 .custom-navbar {
     background: rgba(255, 255, 255, 0.7);
@@ -179,7 +178,6 @@ footer {
     box-shadow: 0 8px 16px rgba(76, 33, 156, 0.15);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
-
 
     .custom-navbar .nav-link,
     .custom-navbar .navbar-brand {
@@ -193,18 +191,13 @@ footer {
             color: var(--mid-purple) !important;
             text-decoration: none;
             position: relative;
+            box-shadow: 0 4px 8px rgba(101, 44, 208, 0.2);
+            border-radius: 0.5rem;
+            padding: 0.3rem 0.6rem;
         }
 
             .custom-navbar .nav-link:hover::after {
-                content: "";
-                position: absolute;
-                bottom: -4px;
-                left: 0;
-                width: 100%;
-                height: 2px;
-                background-color: var(--lavender);
-                border-radius: 1px;
-                animation: underlineSlide 0.3s ease-in-out;
+                content: none;
             }
 
 @keyframes underlineSlide {
@@ -219,13 +212,13 @@ footer {
     }
 }
 
-    .custom-navbar .navbar-toggler {
-        border-color: var(--lavender);
-    }
+.custom-navbar .navbar-toggler {
+    border-color: var(--lavender);
+}
 
-    .custom-navbar .navbar-toggler-icon {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%234c219c' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(76, 33, 156, 0.7)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-    }
+.custom-navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%234c219c' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(76, 33, 156, 0.7)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
 
 /* Logo */
 
@@ -247,16 +240,18 @@ footer {
     color: var(--mid-purple);
 }
 
-
-
 .card:hover {
     transform: scale(1.02);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease-in-out;
 }
+
 .nav-link.active {
     font-weight: bold;
-    color: #c084fc !important; /* niebieski Bootstrap */
-    border-bottom: 2px solid #c084fc;
+    color: var(--mid-purple) !important;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(101, 44, 208, 0.2);
+    border-radius: 0.5rem;
+    padding: 0.3rem 0.6rem;
+    transition: box-shadow 0.3s ease, color 0.3s ease;
 }
-
