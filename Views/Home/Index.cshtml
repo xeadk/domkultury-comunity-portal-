@@ -8,10 +8,19 @@
     <div class="container">
         <h1 class="display-3 fw-bold">Dom Kultury</h1>
         <p class="lead">Twoja przestrzeń twórczości i wspólnoty</p>
-        <a href="@Url.Action("Index", "Zajecia")" class="btn btn-lg btn-light mt-3 px-4">Zobacz zajęcia</a>
-        <a href="@Url.Action("Index", "Wydarzenia")" class="btn btn-lg btn-light mt-3 px-4">Zobacz wydarzenia</a>
+        <a href="@Url.Action("Index", "Zajecia")" class="btn btn-lg btn-hero mt-3 px-4">Zobacz zajęcia</a>
+        <a href="@Url.Action("Index", "Wydarzenia")" class="btn btn-lg btn-hero mt-3 px-4">Zobacz wydarzenia</a>
     </div>
 </section>
+
+<!-- Pogoda -->
+<section class="container text-center">
+    <div class="weather-bar">
+        <img src="@($"https://openweathermap.org/img/wn/{Model.Pogoda.Icon}@2x.png")" alt="Pogoda" class="icon">
+        <span>Pogoda w @Model.Pogoda.City: <strong>@Model.Pogoda.Temperature°C</strong> | @Model.Pogoda.Description</span>
+    </div>
+</section>
+
 
 <!-- Zajęcia -->
 <section class="container py-5">
@@ -58,6 +67,6 @@
     <div class="text-center">
         <h2>Kim jesteśmy?</h2>
         <p class="mt-3">Tworzymy miejsce, w którym każdy – niezależnie od wieku – znajdzie coś dla siebie. Inspirujemy, edukujemy i integrujemy przez sztukę.</p>
-        <a href="#" class="btn btn-outline-primary mt-3">Dowiedz się więcej</a>
+        <a href="#" class="btn btn-hero mt-3">Dowiedz się więcej</a>
     </div>
 </section>
