@@ -4,6 +4,8 @@
     {
         public List<ZajecieWidok> Zajecia { get; set; }
         public List<WydarzenieWidok> Wydarzenia { get; set; }
+        public WeatherInfo Pogoda { get; set; }
+
     }
 
     public class ZajecieWidok

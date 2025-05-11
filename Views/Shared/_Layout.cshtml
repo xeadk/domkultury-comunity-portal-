@@ -6,14 +6,19 @@
     <title>@ViewData["Title"] - DomKultury</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
 
 
 </head>
-<body>
+
+<body style="padding-top: 75px;"> @* jesli bedziemy chcieli zmienic na wieksze logo to to zwiekszymy*@
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar custom-navbar navbar-expand-lg fixed-top shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DomKultury</a>
+                <a class="navbar-brand logo-text" asp-area="" asp-controller="Home" asp-action="Index">
+                    <span class="logo-icon">🎭</span> Dom<span class="highlight">Kultury</span>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,25 +26,25 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Zajecia" ? "active" : "")" asp-controller="Zajecia" asp-action="Index">Zajęcia</a>
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Zajecia" ? "active" : "")" asp-controller="Zajecia" asp-action="Index">Zajęcia</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark @(ViewContext.RouteData.Values["controller"]?.ToString() == "Wydarzenia" ? "active" : "")" asp-controller="Wydarzenia" asp-action="Index">Wydarzenia</a>
+                            <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Wydarzenia" ? "active" : "")" asp-controller="Wydarzenia" asp-action="Index">Wydarzenia</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Konkursy" asp-action="Index">Konkursy</a>
+                            <a class="nav-link" asp-controller="Konkursy" asp-action="Index">Konkursy</a>
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
 
-                                <a class="nav-link text-dark" asp-controller="Administracja" asp-action="Index">Podgląd bazy danych</a>
+                                <a class="nav-link" asp-controller="Administracja" asp-action="Index">Podgląd bazy danych</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Administracja" asp-action="ManageRoles">Zarządzanie rolami</a>
+                                <a class="nav-link" asp-controller="Administracja" asp-action="ManageRoles">Zarządzanie rolami</a>
                             </li>
                         }
 

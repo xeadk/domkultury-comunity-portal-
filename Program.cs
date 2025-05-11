@@ -1,4 +1,5 @@
 using DomKultury.Data;
+using DomKultury.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,6 +34,9 @@ builder.Services.AddDefaultIdentity<IdentityUser> //logowanie
 .AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<WydarzeniaContext>();
 
+// Rejestracja WeatherSettings z appsettings.json (pogoda)
+builder.Services.Configure<WeatherSettings>(
+    builder.Configuration.GetSection("WeatherSettings"));
 
 var app = builder.Build();
 
