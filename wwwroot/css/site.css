@@ -126,3 +126,14 @@ footer {
         transform: translateY(0);
     }
 }
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;
+}
+.nav-link.active {
+    font-weight: bold;
+    color: #c084fc !important; /* niebieski Bootstrap */
+    border-bottom: 2px solid #c084fc;
+}
+

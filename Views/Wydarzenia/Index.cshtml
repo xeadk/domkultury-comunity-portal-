@@ -5,15 +5,21 @@
 }
 
 <h2>Wydarzenia</h2>
-@using Microsoft.AspNetCore.Identity
-@inject UserManager<IdentityUser> UserManager
-@inject SignInManager<IdentityUser> SignInManager
-@inject RoleManager<IdentityRole> RoleManager
 
-@if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
-{
-    <a asp-action="Create" class="btn btn-primary mb-3">Dodaj nowe</a>
-}
+<!-- Formularz filtracji po kategorii -->
+<form method="get" class="mb-3">
+    <div class="form-group">
+        <label for="categoryFilter">Filtruj po kategorii</label>
+        <select id="categoryFilter" name="categoryId" class="form-control">
+            <option value="">Wybierz kategorię</option>
+            @foreach (var kategoria in ViewBag.Kategorie as List<DomKultury.Models.Kategoria>)
+            {
+                <option value="@kategoria.Id">@kategoria.Nazwa</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Filtruj</button>
+</form>
 
 @if (Model.Any())
 {
@@ -24,8 +30,7 @@
                 <div class="card h-100">
                     @if (!string.IsNullOrEmpty(wydarzenie.ObrazekUrl))
                     {
-                        <img src="@wydarzenie.ObrazekUrl" class="card-img-top" style="max-height: 200px; object-fit: cover;"
-                        alt = "Zdjęcie wydarzenia" >
+                        <img src="@wydarzenie.ObrazekUrl" class="card-img-top" style="max-height: 200px; object-fit: cover;" alt="Zdjęcie wydarzenia">
                     }
                     <div class="card-body">
                         <h5 class="card-title">@wydarzenie.Nazwa</h5>
@@ -38,7 +43,6 @@
                     </div>
                 </div>
             </div>
-
         }
     </div>
 }
