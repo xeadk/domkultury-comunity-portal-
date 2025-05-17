@@ -10,7 +10,7 @@
         public DateTime DataRejestracji { get; set; }
 
         // relacja Many-to-Many z Zajeciami
-        public ICollection<Zajecie> Zajecia { get; set; }
+        public ICollection<Zajecie>? Zajecia { get; set; }
 
     }
 

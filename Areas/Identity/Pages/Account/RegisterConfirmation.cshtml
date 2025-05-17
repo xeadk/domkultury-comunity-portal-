@@ -1,0 +1,35 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Register Confirmation";
+}
+
+<div class="auth-wrapper">
+    <div class="auth-box shadow-lg text-center">
+        <h2 class="mb-4">Potwierdzenie rejestracji</h2>
+
+        @if (Model.DisplayConfirmAccountLink)
+        {
+            <div class="alert alert-info mb-4">
+                Ta aplikacja nie posiada jeszcze skonfigurowanego systemu wysyłki e-maili.
+                Więcej informacji znajdziesz w
+                <a href="https://aka.ms/aspaccountconf" target="_blank" rel="noopener noreferrer">dokumentacji Microsoft</a>.
+            </div>
+
+            <p class="mb-3">
+                Normalnie ten link zostałby wysłany e-mailem:
+            </p>
+            <a id="confirm-link" href="@Model.EmailConfirmationUrl" class="btn btn-login w-100 mb-3">
+                Potwierdź adres e-mail
+            </a>
+        }
+        else
+        {
+            <p class="mb-3">
+                Sprawdź swoją skrzynkę e-mail, aby potwierdzić założenie konta.
+            </p>
+        }
+
+        <a asp-page="./Login" class="d-block mt-3">Powrót do logowania</a>
+    </div>
+</div>
