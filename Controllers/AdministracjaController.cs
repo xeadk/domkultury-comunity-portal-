@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace DomKultury.Controllers
@@ -79,5 +80,46 @@ namespace DomKultury.Controllers
         public List<Uczestnik> Uczestnicy { get; set; }
         public List<Kategoria> Kategorie { get; set; }
         public List<Wydarzenie> Wydarzenia { get; set; }
+    }
+    [Route("AdminApi")]
+    [ApiController]
+    public class AdminApiController : ControllerBase
+    {
+        private readonly WydarzeniaContext _context;
+        public AdminApiController(WydarzeniaContext context) => _context = context;
+
+        [HttpPost("Create/{entityType}")]
+        public async Task<IActionResult> Create(string entityType, [FromBody] JsonElement body)
+        {
+            var entity = JsonSerializer.Deserialize(body.GetRawText(), Type.GetType("DomKultury.Models." + entityType));
+            _context.Add(entity);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPut("Update/{entityType}/{id}")]
+        public async Task<IActionResult> Update(string entityType, int id, [FromBody] JsonElement body)
+        {
+            var type = Type.GetType("DomKultury.Models." + entityType);
+            var existing = await _context.FindAsync(type, id);
+            if (existing == null) return NotFound();
+
+            var updated = JsonSerializer.Deserialize(body.GetRawText(), type);
+            _context.Entry(existing).CurrentValues.SetValues(updated);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpDelete("Delete/{entityType}/{id}")]
+        public async Task<IActionResult> Delete(string entityType, int id)
+        {
+            var type = Type.GetType("DomKultury.Models." + entityType);
+            var existing = await _context.FindAsync(type, id);
+            if (existing == null) return NotFound();
+
+            _context.Remove(existing);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }

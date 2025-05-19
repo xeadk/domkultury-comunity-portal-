@@ -1,51 +1,22 @@
 ﻿@model DomKultury.Controllers.TestViewModel
+@{
+    ViewData["Title"] = "Administracja – Wydarzenia";
+}
+<h2>Wydarzenia</h2>
+<partial name="_TabelaAdmin" model="Model.Wydarzenia" />
 
-<h2> Widok bazy danych dla administratora</h2>
+<h2>Zajęcia</h2>
+<partial name="_TabelaAdminZajecia" model="Model.Zajecia" />
 
-<h3>Zajęcia</h3>
-<ul>
-    @foreach (var z in Model.Zajecia)
-    {
-        <li>
-            <b>@z.Nazwa</b> — prow. @z.Instruktor.Imie @z.Instruktor.Nazwisko<br />
-            Cena: @z.Cena zł, Termin: @z.Termin.ToShortDateString(), Miejsce: @z.Lokalizacja<br />
-            Uczestnicy: @string.Join(", ", z.Uczestnicy.Select(u => u.Imie + " " + u.Nazwisko))
-        </li>
-    }
-</ul>
+<h2>Instruktorzy</h2>
+<partial name="_TabelaAdminInstruktorzy" model="Model.Instruktorzy" />
 
-<h3>Instruktorzy</h3>
-<ul>
-    @foreach (var i in Model.Instruktorzy)
-    {
-        <li>@i.Imie @i.Nazwisko — email: @i.Email — zajęcia: @i.Zajecia.Count</li>
-    }
-</ul>
+<h2>Uczestnicy</h2>
+<partial name="_TabelaAdminUczestnicy" model="Model.Uczestnicy" />
 
-<h3>Uczestnicy</h3>
-<ul>
-    @foreach (var u in Model.Uczestnicy)
-    {
-        <li>@u.Imie @u.Nazwisko — zapisany na: @string.Join(", ", u.Zajecia.Select(z => z.Nazwa))</li>
-    }
-</ul>
-
-<h3>Kategorie</h3>
-<ul>
-    @foreach (var k in Model.Kategorie)
-    {
-        <li>@k.Nazwa — wydarzeń: @(k.Wydarzenia?.Count ?? 0)</li>
-    }
-</ul>
-
-
-<h3>Wydarzenia</h3>
-<ul>
-    @foreach (var w in Model.Wydarzenia)
-    {
-        <li>
-            <b>@w.Nazwa</b> — @w.Data.ToShortDateString() w @w.Lokalizacja<br />
-            Kategoria: @w.Kategoria?.Nazwa, Opis: @w.Opis, Status: @(w.Status ? "Zaplanowane" : "Odwołane")
-        </li>
-    }
-</ul>
+<h2>Kategorie</h2>
+<partial name="_TabelaAdminKategorie" model="Model.Kategorie" />
+}
+@section Scripts {
+    <script src="~/js/admin-panel.js"></script>
+}

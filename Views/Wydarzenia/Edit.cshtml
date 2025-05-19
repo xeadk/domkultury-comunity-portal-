@@ -1,0 +1,64 @@
+@model DomKultury.Models.Wydarzenie
+@{
+    ViewData["Title"] = "Edytuj wydarzenie";
+}
+
+<h2>Edytuj wydarzenie</h2>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Nazwa"></label>
+        <input asp-for="Nazwa" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="KategoriaId">Kategoria</label>
+        <select asp-for="KategoriaId" class="form-control" asp-items="@(new SelectList(ViewBag.Kategorie, "Id", "Nazwa"))"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Organizator"></label>
+        <input asp-for="Organizator" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Data"></label>
+        <input asp-for="Data" type="date" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Lokalizacja"></label>
+        <input asp-for="Lokalizacja" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Opis"></label>
+        <textarea asp-for="Opis" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Status</label><br />
+        <input asp-for="Status" type="checkbox" /> Zaplanowane
+    </div>
+
+    <div class="form-group">
+        <label>URL do obrazka</label>
+        <input type="text" name="ObrazekUrl" value="@Model.ObrazekUrl" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Upload obrazka z dysku</label>
+        <input type="file" name="Obrazek" class="form-control" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.ObrazekUrl))
+    {
+        <div class="mt-2">
+            <p>Podgląd:</p>
+            <img src="@Model.ObrazekUrl" style="max-width: 200px;" />
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary">Zapisz</button>
+    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+</form>

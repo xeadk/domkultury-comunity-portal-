@@ -1,0 +1,87 @@
+@model DomKultury.Models.Wydarzenie
+@{
+    ViewData["Title"] = "Dodaj wydarzenie";
+    var kategorie = ViewBag.Kategorie as List<DomKultury.Models.Kategoria>;
+}
+
+<h2>Dodaj wydarzenie</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        <label asp-for="Nazwa"></label>
+        <input asp-for="Nazwa" class="form-control" />
+        <span asp-validation-for="Nazwa" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="KategoriaNazwa">Kategoria</label>
+        <input type="text" name="KategoriaNazwa" class="form-control" list="kategorieList" />
+        <datalist id="kategorieList">
+            @if (kategorie != null)
+            {
+                foreach (var kat in kategorie)
+                {
+                    <option value="@kat.Nazwa"></option>
+                }
+            }
+        </datalist>
+        <span class="text-muted">Wybierz istniejącą lub wpisz nową kategorię</span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Organizator"></label>
+        <input asp-for="Organizator" class="form-control" />
+        <span asp-validation-for="Organizator" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Data"></label>
+        <input asp-for="Data" type="date" class="form-control" />
+        <span asp-validation-for="Data" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Lokalizacja"></label>
+        <input asp-for="Lokalizacja" class="form-control" />
+        <span asp-validation-for="Lokalizacja" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Opis"></label>
+        <textarea asp-for="Opis" class="form-control"></textarea>
+        <span asp-validation-for="Opis" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Status">Status</label><br />
+        <input asp-for="Status" type="checkbox" /> Zaplanowane
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>URL do obrazka</label>
+        <input type="text" name="ObrazekUrl" value="@Model.ObrazekUrl" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Upload obrazka z dysku</label>
+        <input type="file" name="Obrazek" class="form-control" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.ObrazekUrl))
+    {
+        <div class="mt-2">
+            <p>Podgląd:</p>
+            <img src="@Model.ObrazekUrl" style="max-width: 200px;" />
+        </div>
+    }
+
+    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+    <button type="submit" class="btn btn-primary">Zapisz</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

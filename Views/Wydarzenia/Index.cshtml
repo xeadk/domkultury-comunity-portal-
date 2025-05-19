@@ -1,4 +1,4 @@
-﻿@model List<DomKultury.Models.Wydarzenie>
+@model List<DomKultury.Models.Wydarzenie>
 
 @{
     ViewData["Title"] = "Wydarzenia";
@@ -6,7 +6,6 @@
 
 <h2>Wydarzenia</h2>
 
-<!-- Formularz filtracji po kategorii -->
 <form method="get" class="mb-3">
     <div class="form-group">
         <label for="categoryFilter">Filtruj po kategorii</label>
@@ -20,7 +19,10 @@
     </div>
     <button type="submit" class="btn btn-primary mt-3">Filtruj</button>
 </form>
-
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Create" class="btn btn-primary mb-3">Dodaj nowe</a>
+}
 @if (Model.Any())
 {
     <div class="row">
@@ -40,6 +42,13 @@
                         <p><strong>Lokalizacja:</strong> @wydarzenie.Lokalizacja</p>
                         <p><strong>Organizator:</strong> @wydarzenie.Organizator</p>
                         <p><strong>Status:</strong> @(wydarzenie.Status ? "Zaplanowane" : "Odwołane")</p>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                        {
+                            <div class="d-flex justify-content-between">
+                                <a asp-action="Edit" asp-route-id="@wydarzenie.Id" class="btn btn-dark btn-sm">Edytuj</a>
+                                <a asp-action="Delete" asp-route-id="@wydarzenie.Id" class="btn btn-danger btn-sm">Usuń</a>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
