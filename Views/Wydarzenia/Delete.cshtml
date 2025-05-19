@@ -1,0 +1,19 @@
+@model DomKultury.Models.Wydarzenie
+@{ ViewData["Title"] = "Usuń wydarzenie"; }
+
+<h2>Potwierdź usunięcie</h2>
+
+<div>
+    <h4>@Model.Nazwa</h4>
+    <p>@Model.Opis</p>
+    @if (!string.IsNullOrEmpty(Model.ObrazekUrl))
+    {
+        <img src="@Model.ObrazekUrl" style="max-width: 200px;" />
+    }
+</div>
+
+<form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Usuń</button>
+    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+</form>

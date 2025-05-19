@@ -10,9 +10,10 @@ namespace DomKultury.Models
         public string Nazwa { get; set; }
 
         // relacja One-to-Many z Kategoria
-        public int KategoriaId { get; set; }
+        public int? KategoriaId { get; set; }
 
-        public virtual Kategoria Kategoria { get; set; }
+
+        public virtual Kategoria? Kategoria { get; set; }
 
         [Required]
         public string Organizator { get; set; }
