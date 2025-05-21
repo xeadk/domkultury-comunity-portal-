@@ -2,6 +2,7 @@ using DomKultury.Data;
 using DomKultury.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,7 @@ builder.Services.Configure<WeatherSettings>(
     builder.Configuration.GetSection("WeatherSettings"));
 
 var app = builder.Build();
+QuestPDF.Settings.License = LicenseType.Community;
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

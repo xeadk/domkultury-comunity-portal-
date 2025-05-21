@@ -42,6 +42,8 @@
                         <p><strong>Lokalizacja:</strong> @wydarzenie.Lokalizacja</p>
                         <p><strong>Organizator:</strong> @wydarzenie.Organizator</p>
                         <p><strong>Status:</strong> @(wydarzenie.Status ? "Zaplanowane" : "Odwołane")</p>
+                        <a asp-action="Szczegoly" asp-route-id="@wydarzenie.Id" class="btn btn-outline-primary mt-2">Dowiedz się więcej</a>
+                       
                         @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                         {
                             <div class="d-flex justify-content-between">

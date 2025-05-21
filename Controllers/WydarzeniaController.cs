@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using DomKultury.Data;
 using DomKultury.Models;
 using Microsoft.AspNetCore.Authorization;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure; 
+using System.IO;
 
 namespace DomKultury.Controllers
 {
@@ -52,7 +56,6 @@ namespace DomKultury.Controllers
         [HttpPost("Create")]
         public async Task<IActionResult> Create(Wydarzenie model, IFormFile? Obrazek, string? KategoriaNazwa)
         {
-            // przypisanie kategorii na podstawie wpisanego tekstu
             if (!string.IsNullOrWhiteSpace(KategoriaNazwa))
             {
                 var istniejąca = _context.Kategoria.FirstOrDefault(k => k.Nazwa == KategoriaNazwa);
@@ -69,10 +72,8 @@ namespace DomKultury.Controllers
                 }
             }
 
-            // obsługa obrazka
             if (!string.IsNullOrWhiteSpace(model.ObrazekUrl))
             {
-                // URL zostaje
             }
             else if (Obrazek != null && Obrazek.Length > 0)
             {
@@ -90,7 +91,6 @@ namespace DomKultury.Controllers
                 model.ObrazekUrl = "/uploads/" + uniqueFileName;
             }
 
-            // walidacja
             if (!ModelState.IsValid)
             {
                 Console.WriteLine("❌ ModelState.IsValid == false. Błędy walidacji:");
@@ -102,17 +102,15 @@ namespace DomKultury.Controllers
                     }
                 }
 
-                ViewBag.Kategorie = _context.Kategoria.ToList(); // jeśli używasz też gdzieś listy
+                ViewBag.Kategorie = _context.Kategoria.ToList();
                 return View(model);
             }
 
-            // zapis
             _context.Wydarzenie.Add(model);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }
-
 
         // GET: Wydarzenia/Edit/5
         [Authorize(Roles = "Admin,Moderator")]
@@ -137,7 +135,6 @@ namespace DomKultury.Controllers
 
             if (!string.IsNullOrWhiteSpace(model.ObrazekUrl))
             {
-                // zostawiamy
             }
             else if (Obrazek != null && Obrazek.Length > 0)
             {
@@ -205,5 +202,67 @@ namespace DomKultury.Controllers
 
             return RedirectToAction("Index");
         }
+
+        // GET: Wydarzenia/Szczegoly/5
+        [HttpGet("Szczegoly/{id}")]
+        public IActionResult Szczegoly(int id)
+        {
+            var wydarzenie = _context.Wydarzenie
+                .Include(w => w.Kategoria)
+                .FirstOrDefault(w => w.Id == id);
+
+            if (wydarzenie == null)
+                return NotFound();
+
+            return View(wydarzenie);
+        }
+
+
+        [HttpPost("GenerujPDF")]
+        [ValidateAntiForgeryToken]
+        public IActionResult GenerujPDF(int wydarzenieId)
+        {
+            var wydarzenie = _context.Wydarzenie
+                .Include(w => w.Kategoria)
+                .FirstOrDefault(w => w.Id == wydarzenieId);
+
+            if (wydarzenie == null)
+                return NotFound();
+
+            try
+            {
+                var document = Document.Create(container =>
+                {
+                    container.Page(page =>
+                    {
+                        page.Margin(30);
+                        page.Size(PageSizes.A4);
+
+                        page.Content()
+                            .Column(col =>
+                            {
+                                col.Item().Container().PaddingBottom(20).AlignCenter().Text("Potwierdzenie rezerwacji")
+                                    .FontSize(20).Bold().Underline();
+
+                                col.Item().Text($"Nazwa: {wydarzenie.Nazwa}").FontSize(14);
+                                col.Item().Text($"Kategoria: {wydarzenie.Kategoria?.Nazwa}").FontSize(14);
+                                col.Item().Text($"Data: {wydarzenie.Data:dd.MM.yyyy}").FontSize(14);
+                                col.Item().Text($"Lokalizacja: {wydarzenie.Lokalizacja}").FontSize(14);
+                                col.Item().Text($"Organizator: {wydarzenie.Organizator}").FontSize(14);
+                                col.Item().Text($"Status: {(wydarzenie.Status ? "Zaplanowane" : "Odwołane")}").FontSize(14);
+                            });
+                    });
+                });
+
+                byte[] pdfBytes = document.GeneratePdf();
+                return File(pdfBytes, "application/pdf", $"Rezerwacja_{wydarzenie.Nazwa}.pdf");
+            }
+            catch (Exception ex)
+            {
+                return Content($"❌ Błąd generowania PDF: {ex.Message}");
+            }
+        }
+
+
     }
 }
