@@ -13,7 +13,6 @@ namespace DomKultury.Data
         public DbSet<Uczestnik> Uczestnik { get; set; }
         public DbSet<Zajecie> Zajecie { get; set; }
         public DbSet<Instruktor> Instruktor { get; set; }
-        public DbSet<Konkurs> Konkurs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

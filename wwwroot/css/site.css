@@ -183,22 +183,72 @@ footer {
     .custom-navbar .navbar-brand {
         color: var(--deep-purple) !important;
         font-weight: 600;
+        font-size: 1.1rem;
+        position: relative;
+        padding: 0.3rem 0.6rem;
+        text-decoration: none;
+        box-shadow: none !important;
+        border-radius: 0;
         transition: color 0.3s ease;
+        text-shadow: 0.2px 0.2px 0.6px rgba(0, 0, 0, 0.05);
     }
 
+        /* Podkreślenie przy hover */
+        .custom-navbar .nav-link::after {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: -4px; /* Przesunięcie linii niżej względem tekstu */
+            left: 0;
+            height: 2px;
+            width: 0;
+            background-color: var(--mid-purple);
+            transition: width 0.3s ease;
+            transform-origin: left;
+        }
+
+        /* Podkreślenie pokazuje się na hover */
+        .custom-navbar .nav-link:hover::after {
+            width: 100%;
+        }
+
+.nav-link.active {
+    position: relative;
+    font-weight: 600;
+    color: var(--mid-purple) !important;
+}
+
+    .nav-link.active::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 100%;
+        height: 2px; /* Cienka linia */
+        background-color: var(--mid-purple);
+        transition: width 0.3s ease-in-out;
+    }
+
+
+
+
+
+
+        /* Opcjonalnie: zmiana koloru tekstu na hover */
         .custom-navbar .nav-link:hover,
         .custom-navbar .navbar-brand:hover {
             color: var(--mid-purple) !important;
-            text-decoration: none;
-            position: relative;
-            box-shadow: 0 4px 8px rgba(101, 44, 208, 0.2);
-            border-radius: 0.5rem;
-            padding: 0.3rem 0.6rem;
         }
 
-            .custom-navbar .nav-link:hover::after {
-                content: none;
-            }
+    /* Hamburger menu */
+    .custom-navbar .navbar-toggler {
+        border-color: var(--lavender);
+    }
+
+    .custom-navbar .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%234c219c' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(76, 33, 156, 0.7)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
 
 @keyframes underlineSlide {
     from {
@@ -212,21 +262,13 @@ footer {
     }
 }
 
-.custom-navbar .navbar-toggler {
-    border-color: var(--lavender);
-}
-
-.custom-navbar .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%234c219c' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(76, 33, 156, 0.7)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
 /* Logo */
 
 .logo-text {
-    font-size: 1.6rem;
-    font-weight: 700;
-    font-family: 'Pacifico', cursive;
-    color: var(--deep-purple) !important;
+    font-size: 1.6rem !important;
+    font-weight: 700 !important;
+    font-family: 'Pacifico', cursive !important;
+    color: var(--deep-purple);
     display: flex;
     align-items: center;
     gap: 0.4rem;
@@ -244,16 +286,6 @@ footer {
     transform: scale(1.02);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease-in-out;
-}
-
-.nav-link.active {
-    font-weight: bold;
-    color: var(--mid-purple) !important;
-    text-decoration: none;
-    box-shadow: 0 4px 8px rgba(101, 44, 208, 0.2);
-    border-radius: 0.5rem;
-    padding: 0.3rem 0.6rem;
-    transition: box-shadow 0.3s ease, color 0.3s ease;
 }
 
 
