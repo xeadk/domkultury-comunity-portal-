@@ -26,25 +26,20 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Zajecia" ? "active" : "")" asp-controller="Zajecia" asp-action="Index">Zajęcia</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Wydarzenia" ? "active" : "")" asp-controller="Wydarzenia" asp-action="Index">Wydarzenia</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Konkursy" asp-action="Index">Konkursy</a>
-                        </li>
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-
-                                <a class="nav-link" asp-controller="Administracja" asp-action="Index">Podgląd bazy danych</a>
+                                <a class="nav-link @((ViewContext.RouteData.Values["controller"]?.ToString() == "Administracja" && ViewContext.RouteData.Values["action"]?.ToString() == "Index") ? "active" : "")"
+                                   asp-controller="Administracja" asp-action="Index">Podgląd bazy danych</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Administracja" asp-action="ManageRoles">Zarządzanie rolami</a>
+                                <a class="nav-link @((ViewContext.RouteData.Values["controller"]?.ToString() == "Administracja" && ViewContext.RouteData.Values["action"]?.ToString() == "ManageRoles") ? "active" : "")"
+                                   asp-controller="Administracja" asp-action="ManageRoles">Zarządzanie rolami</a>
                             </li>
                         }
 
