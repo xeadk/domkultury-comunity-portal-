@@ -1,11 +1,14 @@
 @model IEnumerable<DomKultury.Models.Instruktor>
 
-<table class="table table-bordered table-hover" data-type="Instruktor">
+<table class="table table-admin table-bordered table-hover" data-type="Instruktor">
     <thead class="table-light">
         <tr>
             @foreach (var prop in typeof(DomKultury.Models.Instruktor).GetProperties())
             {
-                <th>@prop.Name</th>
+                if (prop.Name != "Id")
+                {
+                    <th>@prop.Name</th>
+                }
             }
             <th>Akcje</th>
         </tr>
@@ -16,7 +19,10 @@
             <tr data-id="@item.Id">
                 @foreach (var prop in item.GetType().GetProperties())
                 {
-                    <td contenteditable="true" data-field="@prop.Name">@prop.GetValue(item)</td>
+                    if (prop.Name != "Id")
+                    {
+                        <td contenteditable="true" data-field="@prop.Name">@prop.GetValue(item)</td>
+                    }
                 }
                 <td>
                     <button class="btn btn-sm btn-success" onclick="zapiszWiersz(this)">Zapisz</button>
