@@ -390,3 +390,109 @@ footer {
     padding-right: 2.5rem; /* Zostawiamy miejsce na przycisk oczka */
 }
 
+
+/*do admina i do jego tabel*/
+
+.table-admin {
+    background-color: var(--off-white);
+    border-radius: 1.1rem;
+    border: 2px solid var(--mid-purple);
+    box-shadow: 0 4px 18px rgba(76,33,156,0.08);
+    margin-bottom: 1.2rem;
+    overflow: hidden;
+}
+
+    .table-admin thead {
+        background: linear-gradient(90deg, var(--mid-purple) 0%, var(--light-lavender) 100%);
+        color: var(--off-white);
+        font-weight: 700;
+        letter-spacing: 0.03em;
+    }
+
+    .table-admin th, .table-admin td {
+        padding: 0.65rem 1rem;
+        text-align: left;
+        vertical-align: middle;
+        border-bottom: 1px solid var(--lavender);
+    }
+
+    .table-admin th {
+        font-size: 1.05rem;
+        background-color: var(--light-lavender);
+        color: var(--deep-purple);
+    }
+
+    .table-admin td[contenteditable="true"] {
+        background-color: var(--pastel-purple);
+        transition: background 0.3s;
+        border-radius: 0.4rem;
+        cursor: pointer;
+    }
+
+        .table-admin td[contenteditable="true"]:focus {
+            background-color: var(--light-lavender);
+            outline: 2px solid var(--mid-purple);
+        }
+
+    .table-admin tr:last-child td {
+        border-bottom: none;
+    }
+
+    .table-admin tr:hover {
+        background-color: var(--pastel-purple);
+        transition: background 0.2s;
+    }
+
+    .table-admin .btn {
+        margin-right: 0.3rem;
+    }
+
+    .table-admin .btn-success, .table-admin .btn-danger {
+        font-weight: 600;
+        border-radius: 0.5rem;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .table-admin .btn-success {
+        background-color: var(--mid-purple);
+        border-color: var(--lavender);
+        color: var(--off-white);
+    }
+
+        .table-admin .btn-success:hover {
+            background-color: var(--deep-purple);
+            color: var(--off-white);
+            box-shadow: 0 2px 8px rgba(76,33,156,0.15);
+            transform: scale(1.05);
+        }
+
+    .table-admin .btn-danger {
+        background-color: #ee7474;
+        border-color: #ee7474;
+        color: var(--off-white);
+    }
+
+        .table-admin .btn-danger:hover {
+            background-color: #c72b2b;
+            color: var(--off-white);
+            box-shadow: 0 2px 8px rgba(200, 43, 43, 0.15);
+            transform: scale(1.05);
+        }
+
+/* Opcjonalnie przycisk Dodaj nowy */
+.btn-add-row {
+    background: var(--mid-purple);
+    color: var(--off-white) !important;
+    border-radius: 0.6rem;
+    border: none;
+    font-weight: 600;
+    margin-top: 0.8rem;
+    transition: background 0.2s, transform 0.15s;
+}
+
+    .btn-add-row:hover {
+        background: var(--deep-purple);
+        color: var(--off-white) !important;
+        transform: scale(1.04);
+    }
+
