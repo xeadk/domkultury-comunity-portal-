@@ -496,3 +496,10 @@ footer {
         transform: scale(1.04);
     }
 
+/* Stylizacja przycisków "Dowiedz się więcej" w zajęciach i wydarzeniach */
+a.btn.btn-primary:contains("Dowiedz się więcej") {
+    background-color: var(--lavender) !important;
+    border-color: var(--lavender) !important;
+    color: white !important;
+}
+

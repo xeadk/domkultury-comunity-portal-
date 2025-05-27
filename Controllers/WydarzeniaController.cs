@@ -229,40 +229,66 @@ namespace DomKultury.Controllers
             if (wydarzenie == null)
                 return NotFound();
 
-            try
+            var deepPurple = "#4c219c";
+            var lavender = "#8759dc";
+            var offWhite = "#fbfafe";
+            var lightLavender = "#ad8de7";
+
+            var document = Document.Create(container =>
             {
-                var document = Document.Create(container =>
+                container.Page(page =>
                 {
-                    container.Page(page =>
-                    {
-                        page.Margin(30);
-                        page.Size(PageSizes.A4);
+                    page.Margin(40);
+                    page.Size(PageSizes.A4);
+                    page.PageColor(offWhite);
+                    page.DefaultTextStyle(x => x.FontSize(12).FontFamily("Segoe UI").FontColor(deepPurple));
 
-                        page.Content()
-                            .Column(col =>
-                            {
-                                col.Item().Container().PaddingBottom(20).AlignCenter().Text("Potwierdzenie rezerwacji")
-                                    .FontSize(20).Bold().Underline();
+                    // Nagłówek
+                    page.Header()
+                        .AlignCenter()
+                        .Text("Potwierdzenie Rezerwacji Wydarzenia")
+                        .FontSize(18).Bold().FontColor(deepPurple);
 
-                                col.Item().Text($"Nazwa: {wydarzenie.Nazwa}").FontSize(14);
-                                col.Item().Text($"Kategoria: {wydarzenie.Kategoria?.Nazwa}").FontSize(14);
-                                col.Item().Text($"Data: {wydarzenie.Data:dd.MM.yyyy}").FontSize(14);
-                                col.Item().Text($"Lokalizacja: {wydarzenie.Lokalizacja}").FontSize(14);
-                                col.Item().Text($"Organizator: {wydarzenie.Organizator}").FontSize(14);
-                                col.Item().Text($"Status: {(wydarzenie.Status ? "Zaplanowane" : "Odwołane")}").FontSize(14);
-                            });
-                    });
+                    // Zawartość
+                    page.Content()
+                        .PaddingVertical(15)
+                        .Background(Colors.White)
+                        .Border(1)
+                        .BorderColor(lightLavender)
+                        .Column(col =>
+                        {
+                            col.Spacing(10);
+
+                            col.Item().Text($"Nazwa wydarzenia: {wydarzenie.Nazwa}")
+                                .FontSize(13).Bold();
+
+                            col.Item().Text($"Kategoria: {wydarzenie.Kategoria?.Nazwa ?? "-"}");
+
+                            col.Item().Text($"Data: {wydarzenie.Data.ToString("dd.MM.yyyy")}");
+
+                            col.Item().Text($"Lokalizacja: {wydarzenie.Lokalizacja}");
+
+                            col.Item().Text($"Organizator: {wydarzenie.Organizator}");
+
+                            col.Item().Text($"Status: {(wydarzenie.Status ? "Zaplanowane" : "Odwołane")}");
+                        });
+
+                    // Stopka
+                    page.Footer()
+                        .AlignCenter()
+                        .Text(text =>
+                        {
+                            text.Span("Dokument wygenerowany automatycznie przez Dom Kultury")
+                                .FontSize(10)
+                                .Italic()
+                                .FontColor(lavender);
+                        });
                 });
+            });
 
-                byte[] pdfBytes = document.GeneratePdf();
-                return File(pdfBytes, "application/pdf", $"Rezerwacja_{wydarzenie.Nazwa}.pdf");
-            }
-            catch (Exception ex)
-            {
-                return Content($"❌ Błąd generowania PDF: {ex.Message}");
-            }
+            byte[] pdfBytes = document.GeneratePdf();
+            return File(pdfBytes, "application/pdf", $"Rezerwacja_{wydarzenie.Nazwa}.pdf");
         }
-
 
     }
 }

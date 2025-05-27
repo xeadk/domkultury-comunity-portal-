@@ -253,5 +253,19 @@ namespace DomKultury.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Zajecia/Szczegoly/5
+        [HttpGet("Szczegoly/{id}")]
+        public IActionResult Szczegoly(int id)
+        {
+            var zajecie = _context.Zajecie
+                .Include(z => z.Instruktor)
+                .FirstOrDefault(z => z.Id == id);
+
+            if (zajecie == null)
+                return NotFound();
+
+            return View(zajecie);
+        }
+
     }
 }

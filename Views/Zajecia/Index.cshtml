@@ -51,6 +51,9 @@
                             <div class="mt-auto">
                                 <a asp-action="Zapisz" asp-route-id="@zajecie.Id" class="btn btn-primary w-100 mb-2">Zapisz się</a>
 
+                                <a asp-action="Szczegoly" asp-route-id="@zajecie.Id" class="btn btn-primary w-100 mb-2 dowiedz-sie-wiecej">Dowiedz się więcej</a>
+
+
                                 @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                 {
                                     <div class="d-flex justify-content-between">

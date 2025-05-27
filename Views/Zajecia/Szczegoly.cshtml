@@ -1,0 +1,21 @@
+﻿@model DomKultury.Models.Zajecie
+
+@{
+    ViewData["Title"] = "Szczegóły zajęć";
+}
+
+<h2>@Model.Nazwa</h2>
+
+@if (!string.IsNullOrEmpty(Model.ObrazekUrl))
+{
+    <img src="@Model.ObrazekUrl" alt="Obrazek zajęć" style="max-width: 100%; height: auto;" />
+}
+
+<p><strong>Opis:</strong> @Model.Opis</p>
+<p><strong>Termin:</strong> @Model.Termin.ToString("dd.MM.yyyy HH:mm")</p>
+<p><strong>Lokalizacja:</strong> @Model.Lokalizacja</p>
+<p><strong>Cena:</strong> @Model.Cena.ToString("C")</p>
+<p><strong>Maksymalna liczba uczestników:</strong> @Model.MaksymalnaLiczbaUczestnikow</p>
+<p><strong>Instruktor:</strong> @Model.Instruktor?.Imie @Model.Instruktor?.Nazwisko</p>
+
+<a asp-controller="Zajecia" asp-action="Index" class="btn btn-secondary mt-3">Powrót do listy</a>
