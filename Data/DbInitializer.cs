@@ -1,5 +1,6 @@
 ﻿using DomKultury.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,6 +89,46 @@ namespace DomKultury.Data
                 };
                 context.Uczestnik.AddRange(uczestnicy);
                 context.SaveChanges();
+
+                var informacje = new List<Informacja>
+                {
+                    new Informacja
+                    {
+                        Tytul = "Kim jesteśmy?",
+                        Tresc = "Dom Kultury to przestrzeń dla pasjonatów kultury i sztuki. Organizujemy zajęcia, koncerty, wystawy i wydarzenia kulturalne dla mieszkańców."
+                    },
+                    new Informacja
+                    {
+                        Tytul = "Nasza misja",
+                        Tresc = "Łączymy ludzi poprzez kulturę. Wspieramy rozwój osobisty, kreatywność i aktywność społeczną."
+                    }
+                };
+
+                context.Informacja.AddRange(informacje);
+                context.SaveChanges();
+
+                var faq = new List<Faq>
+                {
+                    new Faq
+                    {
+                        Pytanie = "Jak zapisać się na zajęcia?",
+                        Odpowiedz = "Zaloguj się na stronie, wybierz interesujące Cię zajęcia i kliknij 'Zapisz się'."
+                    },
+                    new Faq
+                    {
+                        Pytanie = "Czy wydarzenia są płatne?",
+                        Odpowiedz = "Niektóre wydarzenia są bezpłatne, inne wymagają zakupu biletu. Sprawdź szczegóły w opisie wydarzenia."
+                    },
+                    new Faq
+                    {
+                        Pytanie = "Gdzie znajdę harmonogram?",
+                        Odpowiedz = "Harmonogram zajęć i wydarzeń dostępny jest w zakładkach 'Zajęcia' i 'Wydarzenia'."
+                    }
+                };
+
+                context.Faq.AddRange(faq);
+                context.SaveChanges();
+
 
                 var kategorie = new List<Kategoria>
                 {
