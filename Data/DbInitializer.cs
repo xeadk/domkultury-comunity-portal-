@@ -13,7 +13,7 @@ namespace DomKultury.Data
             context.Database.EnsureCreated();
 
             // ===== ROLĘ =====
-            var roles = new[] { "Admin", "Moderator", "Uzytkownik" };
+            var roles = new[] { "Admin", "Uzytkownik" };
             foreach (var role in roles)
             {
                 if (!roleManager.RoleExistsAsync(role).Result)
@@ -25,7 +25,7 @@ namespace DomKultury.Data
 
             // ===== UŻYTKOWNICY =====
             SeedUser(userManager, "admin@domkultury.pl", "Admin123!", "Admin");
-            SeedUser(userManager, "moderator@domkultury.pl", "Moderator123!", "Moderator");
+            SeedUser(userManager, "moderator@domkultury.pl", "Moderator123!", "Admin");
             SeedUser(userManager, "user@domkultury.pl", "User123!", "Uzytkownik");
 
             // ===== DANE APLIKACJI (tylko raz) =====

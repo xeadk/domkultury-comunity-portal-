@@ -105,10 +105,20 @@ namespace DomKultury.Controllers
             if (existing == null) return NotFound();
 
             var updated = JsonSerializer.Deserialize(body.GetRawText(), type);
+
+            // NIE NADPISUJ Id!
+            var idProp = type.GetProperty("Id");
+            if (idProp != null && updated != null && existing != null)
+            {
+                var originalId = idProp.GetValue(existing);
+                idProp.SetValue(updated, originalId); // przywróć oryginalne Id na wszelki wypadek
+            }
+
             _context.Entry(existing).CurrentValues.SetValues(updated);
             await _context.SaveChangesAsync();
             return Ok();
         }
+
 
         [HttpDelete("Delete/{entityType}/{id}")]
         public async Task<IActionResult> Delete(string entityType, int id)
