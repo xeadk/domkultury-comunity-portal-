@@ -20,6 +20,7 @@ namespace DomKultury.Models
         // Relacja One-to-Many z Uczestnikami
         public ICollection<Uczestnik>? Uczestnicy { get; set; }
         public string? ObrazekUrl { get; set; } // Ścieżka lub URL do obrazka
+        public string? RozszerzonyOpis { get; set; }
 
     }
 

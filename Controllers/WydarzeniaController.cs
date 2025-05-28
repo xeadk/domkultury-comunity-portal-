@@ -271,6 +271,7 @@ namespace DomKultury.Controllers
                             col.Item().Text($"Organizator: {wydarzenie.Organizator}");
 
                             col.Item().Text($"Status: {(wydarzenie.Status ? "Zaplanowane" : "Odwołane")}");
+
                         });
 
                     // Stopka
