@@ -1,0 +1,60 @@
+﻿@model DomKultury.Models.DowiedzSieWiecejViewModel
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>O nas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <section class="about-section">
+        <h1>O nas</h1>
+        <div class="info-cards">
+            @foreach (var info in Model.Informacje)
+            {
+                <div class="info-card">
+                    <i class="fas @info.Ikona"></i>
+                    <h2>@info.Tytul</h2>
+                    <p>@info.Tresc</p>
+                </div>
+            }
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <h1>FAQ</h1>
+        <div class="faq">
+            @foreach (var item in Model.Faq)
+            {
+                <div class="faq-item">
+                    <button class="faq-question">@item.Pytanie</button>
+                    <div class="faq-answer">@item.Odpowiedz</div>
+                </div>
+            }
+        </div>
+    </section>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const answer = button.nextElementSibling;
+
+                if (answer.classList.contains('visible')) {
+                    answer.classList.remove('visible');
+                    item.classList.remove('open');
+                    answer.style.maxHeight = null;
+                } else {
+                    answer.classList.add('visible');
+                    item.classList.add('open');
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

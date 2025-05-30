@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
 
 namespace DomKultury.Controllers
 {
@@ -103,5 +104,17 @@ namespace DomKultury.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        // przycisk dowiedz siê wiêcej
+        public IActionResult DowiedzSieWiecej()
+        {
+            var model = new DowiedzSieWiecejViewModel
+            {
+                Faq = _context.Faq.ToList(), // <- to jest kluczowe
+                Informacje = _context.Informacja.ToList()
+            };
+
+            return View(model);
+        }
+
     }
 }
