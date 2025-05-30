@@ -24,7 +24,6 @@
                     <form asp-action="UpdateUserRole" method="post">
                         <input type="hidden" name="userId" value="@user.Id" />
                         <select name="roleName" class="form-select">
-                            <option value="">Brak</option>
                             @foreach (var role in Model.Roles)
                             {
                                 <option value="@role.Name" selected="@(currentRole == role.Name ? "selected" : null)">@role.Name</option>

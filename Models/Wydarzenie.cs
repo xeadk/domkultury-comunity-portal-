@@ -32,6 +32,6 @@ namespace DomKultury.Models
 
         public string? ObrazekUrl { get; set; } // Ścieżka lub URL do obrazka
 
-
+        public string RozszerzonyOpis { get; set; }
     }
 }

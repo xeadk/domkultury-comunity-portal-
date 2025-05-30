@@ -43,7 +43,7 @@ namespace DomKultury.Controllers
         }
 
         // GET: Wydarzenia/Create
-        [Authorize(Roles = "Admin,Moderator")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("Create")]
         public IActionResult Create()
         {
@@ -52,7 +52,7 @@ namespace DomKultury.Controllers
         }
 
         // POST: Wydarzenia/Create
-        [Authorize(Roles = "Admin,Moderator")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("Create")]
         public async Task<IActionResult> Create(Wydarzenie model, IFormFile? Obrazek, string? KategoriaNazwa)
         {
@@ -113,7 +113,7 @@ namespace DomKultury.Controllers
         }
 
         // GET: Wydarzenia/Edit/5
-        [Authorize(Roles = "Admin,Moderator")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("Edit/{id}")]
         public IActionResult Edit(int id)
         {
@@ -126,7 +126,7 @@ namespace DomKultury.Controllers
         }
 
         // POST: Wydarzenia/Edit/5
-        [Authorize(Roles = "Admin,Moderator")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("Edit/{id}")]
         public async Task<IActionResult> Edit(int id, Wydarzenie model, IFormFile? Obrazek)
         {
@@ -174,7 +174,7 @@ namespace DomKultury.Controllers
         }
 
         // GET: Wydarzenia/Delete/5
-        [Authorize(Roles = "Admin,Moderator")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("Delete/{id}")]
         public IActionResult Delete(int id)
         {
@@ -188,7 +188,7 @@ namespace DomKultury.Controllers
         }
 
         // POST: Wydarzenia/Delete/5
-        [Authorize(Roles = "Admin,Moderator")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("Delete/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -271,6 +271,7 @@ namespace DomKultury.Controllers
                             col.Item().Text($"Organizator: {wydarzenie.Organizator}");
 
                             col.Item().Text($"Status: {(wydarzenie.Status ? "Zaplanowane" : "Odwołane")}");
+
                         });
 
                     // Stopka
