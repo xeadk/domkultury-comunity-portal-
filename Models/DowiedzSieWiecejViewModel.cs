@@ -2,8 +2,9 @@
 {
     public class DowiedzSieWiecejViewModel
     {
-        public List<Informacja> Informacja { get; set; }
-        public List<Faq> Faq { get; set; }
+        public List<Informacja> Informacje { get; set; } = new List<Informacja>();
+        public List<Faq> Faq { get; set; } = new List<Faq>(); // <- ważne: inicjalizacja lub ustawianie w kontrolerze
     }
+
 
 }

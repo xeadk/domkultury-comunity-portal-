@@ -503,3 +503,186 @@ a.btn.btn-primary:contains("Dowiedz się więcej") {
     color: white !important;
 }
 
+/*==============================
+  Sekcja "O nas"
+==============================*/
+
+.about-section {
+    padding: 3rem 1rem;
+    text-align: center;
+    background-color: white;
+    color: var(--deep-purple);
+}
+
+    .about-section h1 {
+        font-size: 2.7rem;
+        color: var(--deep-purple);
+        position: relative;
+        margin-bottom: 0.5rem;
+        display: inline-block;
+        padding-bottom: 0.4rem;
+    }
+
+        .about-section h1::after {
+            content: '';
+            display: block;
+            height: 4px;
+            width: 60%;
+            margin: 0.4rem auto 0;
+            background: linear-gradient(to right, var(--mid-purple), var(--light-lavender));
+            border-radius: 2px;
+        }
+
+.section-subtitle {
+    color: #777;
+    font-size: 1rem;
+    margin-top: -0.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Kafelki informacyjne */
+
+.info-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.info-card {
+    background-color: #fdfcff;
+    border-left: 5px solid var(--mid-purple);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+    .info-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .info-card i {
+        font-size: 2rem;
+        margin-bottom: 0.8rem;
+        color: var(--deep-purple);
+        transition: transform 0.6s ease;
+    }
+
+    .info-card:hover i {
+        transform: rotate(8deg) scale(1.1);
+    }
+
+    .info-card h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .info-card p {
+        font-size: 0.95rem;
+        color: #555;
+    }
+
+/*==============================
+  FAQ Sekcja
+==============================*/
+
+.faq-section {
+    padding: 3rem 1rem;
+    background-color: #faf9fc;
+    color: var(--deep-purple);
+    text-align: center;
+}
+
+    .faq-section h1 {
+        font-size: 2.7rem;
+        color: var(--deep-purple);
+        position: relative;
+        margin-bottom: 0.5rem;
+        display: inline-block;
+        padding-bottom: 0.4rem;
+    }
+
+        .faq-section h1::after {
+            content: '';
+            display: block;
+            height: 4px;
+            width: 60%;
+            margin: 0.4rem auto 0;
+            background: linear-gradient(to right, var(--mid-purple), var(--light-lavender));
+            border-radius: 2px;
+        }
+
+.faq {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.faq-item {
+    margin-bottom: 1rem;
+    overflow: hidden;
+    border-radius: 1rem;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.3s ease;
+}
+
+    .faq-item.open {
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+.faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--pastel-purple);
+    border: none;
+    padding: 1.2rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--deep-purple);
+    transition: background-color 0.3s ease;
+}
+
+    .faq-question:hover {
+        background-color: var(--light-lavender);
+    }
+
+    .faq-question::after {
+        content: '\f078';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        transition: transform 0.3s ease;
+    }
+
+.faq-item.open .faq-question::after {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 1.5rem;
+    background-color: white;
+    border-top: 1px solid #e0d9f2;
+    transition: max-height 0.5s ease, opacity 0.4s ease;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #444;
+}
+
+    .faq-answer.visible {
+        max-height: 500px;
+        opacity: 1;
+        padding: 1rem 1.5rem 1.5rem;
+    }
+
+

@@ -17,10 +17,12 @@ namespace DomKultury.Controllers
         public IActionResult Index()
         {
             var dane = _context.Informacja.ToList();
+            var daneFaq = _context.Faq.ToList();
 
             var viewModel = new DowiedzSieWiecejViewModel
             {
-                Informacja = dane
+                Informacje = dane,
+                Faq = daneFaq
             };
 
             return View(viewModel);

@@ -105,18 +105,16 @@ namespace DomKultury.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         // przycisk dowiedz siê wiêcej
-        public async Task<IActionResult> DowiedzSieWiecej()
+        public IActionResult DowiedzSieWiecej()
         {
-            var informacje = await _context.Informacja.ToListAsync();
-            var faq = await _context.Faq.ToListAsync();
-
             var model = new DowiedzSieWiecejViewModel
             {
-                Informacja = informacje,
-                Faq = faq
+                Faq = _context.Faq.ToList(), // <- to jest kluczowe
+                Informacje = _context.Informacja.ToList()
             };
 
             return View(model);
         }
+
     }
 }
