@@ -11,9 +11,6 @@ namespace DomKultury.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Konkurs");
-
             migrationBuilder.AddColumn<string>(
                 name: "RozszerzonyOpis",
                 table: "Zajecie",
