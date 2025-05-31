@@ -1,22 +1,59 @@
 ﻿@model DomKultury.Controllers.TestViewModel
+
 @{
-    ViewData["Title"] = "Administracja – Wydarzenia";
+    ViewData["Title"] = "Administracja – Podgląd bazy";
 }
-<h2>Wydarzenia</h2>
-<partial name="_TabelaAdmin" model="Model.Wydarzenia" />
 
-<h2>Zajęcia</h2>
-<partial name="_TabelaAdminZajecia" model="Model.Zajecia" />
+<div class="admin-wrapper">
+    <div class="admin-section">
+        <h2>Wydarzenia</h2>
+        <partial name="_TabelaAdmin" model="Model.Wydarzenia" />
+    </div>
 
-<h2>Instruktorzy</h2>
-<partial name="_TabelaAdminInstruktorzy" model="Model.Instruktorzy" />
+    <div class="admin-section">
+        <h2>Zajęcia</h2>
+        <partial name="_TabelaAdminZajecia" model="Model.Zajecia" />
+    </div>
 
-<h2>Uczestnicy</h2>
-<partial name="_TabelaAdminUczestnicy" model="Model.Uczestnicy" />
+    <div class="admin-section">
+        <h2>Instruktorzy</h2>
+        <partial name="_TabelaAdminInstruktorzy" model="Model.Instruktorzy" />
+    </div>
 
-<h2>Kategorie</h2>
-<partial name="_TabelaAdminKategorie" model="Model.Kategorie" />
+    <div class="admin-section">
+        <h2>Uczestnicy</h2>
+        <partial name="_TabelaAdminUczestnicy" model="Model.Uczestnicy" />
+    </div>
+
+    <div class="admin-section">
+        <h2>Kategorie</h2>
+        <partial name="_TabelaAdminKategorie" model="Model.Kategorie" />
+    </div>
+</div>
 
 @section Scripts {
     <script src="~/js/admin-panel.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const editableCells = document.querySelectorAll('.table-admin td[contenteditable="true"]');
+
+            editableCells.forEach(cell => {
+                cell.addEventListener('click', function () {
+                    // Jeśli klikamy w już aktywną komórkę, to ją zwijamy
+                    if (cell.classList.contains("expanded")) {
+                        cell.classList.remove("expanded");
+                        cell.blur();
+                    } else {
+                        // Zwijamy wszystkie inne komórki
+                        editableCells.forEach(c => c.classList.remove("expanded"));
+                        // Rozwijamy bieżącą
+                        cell.classList.add("expanded");
+                        cell.focus();
+                    }
+                });
+            });
+        });
+    </script>
+
 }

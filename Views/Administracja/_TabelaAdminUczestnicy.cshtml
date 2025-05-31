@@ -1,35 +1,37 @@
 @model IEnumerable<DomKultury.Models.Uczestnik>
 
-<table class="table table-admin table-bordered table-hover" data-type="Uczestnik">
-    <thead class="table-light">
-        <tr>
-            @foreach (var prop in typeof(DomKultury.Models.Uczestnik).GetProperties())
-            {
-                if (prop.Name != "Id")
-                {
-                    <th>@prop.Name</th>
-                }
-            }
-            <th>Akcje</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr data-id="@item.Id">
-                @foreach (var prop in item.GetType().GetProperties())
+<section class="admin-section">
+    <table class="table table-admin table-bordered table-hover" data-type="Uczestnik">
+        <thead class="table-light">
+            <tr>
+                @foreach (var prop in typeof(DomKultury.Models.Uczestnik).GetProperties())
                 {
                     if (prop.Name != "Id")
                     {
-                        <td contenteditable="true" data-field="@prop.Name">@prop.GetValue(item)</td>
+                        <th>@prop.Name</th>
                     }
                 }
-                <td>
-                    <button class="btn btn-sm btn-success" onclick="zapiszWiersz(this)">Zapisz</button>
-                    <button class="btn btn-sm btn-danger" onclick="usunWiersz(this)">Usuń</button>
-                </td>
+                <th>Akcje</th>
             </tr>
-        }
-    </tbody>
-</table>
-<button class="btn btn-primary mt-2" onclick="dodajNowyWiersz('Uczestnik')">Dodaj nowy</button>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr data-id="@item.Id">
+                    @foreach (var prop in item.GetType().GetProperties())
+                    {
+                        if (prop.Name != "Id")
+                        {
+                            <td contenteditable="true" data-field="@prop.Name">@prop.GetValue(item)</td>
+                        }
+                    }
+                    <td>
+                        <button class="btn btn-sm btn-success" onclick="zapiszWiersz(this)">Zapisz</button>
+                        <button class="btn btn-sm btn-danger" onclick="usunWiersz(this)">Usuń</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button class="btn btn-add-row" onclick="dodajNowyWiersz('Uczestnik')">Dodaj nowy</button>
+</section>
