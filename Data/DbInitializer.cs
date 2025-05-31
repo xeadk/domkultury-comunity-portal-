@@ -128,7 +128,7 @@ namespace DomKultury.Data
                 Console.WriteLine("Dodawanie FAQ...");
                 var faq = new List<Faq>
     {
-        new Faq { Pytanie = "Jak zapisać się na zajęcia?", Odpowiedz = "Zaloguj się na stronie, wybierz interesujące Cię zajęcia i kliknij 'Zapisz się'." },
+        new Faq { Pytanie = "Jak zapisać się na zajęcia?", Odpowiedz = "W zakładce 'Zajecia' wybierz interesujące Cię zajęcia, kliknij 'Zapisz się'. i wypełnij formularz." },
         new Faq { Pytanie = "Czy wydarzenia są płatne?", Odpowiedz = "Niektóre wydarzenia są bezpłatne, inne wymagają zakupu biletu. Sprawdź szczegóły w opisie wydarzenia." },
         new Faq { Pytanie = "Gdzie znajdę harmonogram?", Odpowiedz = "Harmonogram zajęć i wydarzeń dostępny jest w zakładkach 'Zajęcia' i 'Wydarzenia'." },
         new Faq { Pytanie = "Czy mogę zapisać dziecko na zajęcia?", Odpowiedz = "Tak, oferujemy zajęcia dla dzieci i młodzieży. Informacje znajdziesz w opisie konkretnych zajęć." },
