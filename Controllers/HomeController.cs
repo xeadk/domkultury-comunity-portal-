@@ -59,7 +59,7 @@ namespace DomKultury.Controllers
                 _logger.LogWarning("Brak klucza API do pobierania pogody.");
             }
 
-            var pogoda = await PobierzPogodeAsync("Bia³ystok", apiKey); // lub inne miasto
+            var pogoda = await PobierzPogodeAsync("Warszawa", apiKey); // lub inne miasto
 
             var model = new HomePageViewModel
             {
