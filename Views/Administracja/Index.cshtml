@@ -36,24 +36,36 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const editableCells = document.querySelectorAll('.table-admin td[contenteditable="true"]');
+            const cells = document.querySelectorAll('.table-admin td[contenteditable="true"]');
 
-            editableCells.forEach(cell => {
-                cell.addEventListener('click', function () {
-                    // Jeśli klikamy w już aktywną komórkę, to ją zwijamy
-                    if (cell.classList.contains("expanded")) {
-                        cell.classList.remove("expanded");
-                        cell.blur();
-                    } else {
-                        // Zwijamy wszystkie inne komórki
-                        editableCells.forEach(c => c.classList.remove("expanded"));
-                        // Rozwijamy bieżącą
-                        cell.classList.add("expanded");
-                        cell.focus();
-                    }
+            cells.forEach(cell => {
+                cell.addEventListener('focus', () => {
+                    cells.forEach(c => {
+                        if (c !== document.activeElement) {
+                            c.style.whiteSpace = "nowrap";
+                            c.style.overflow = "hidden";
+                            c.style.textOverflow = "ellipsis";
+                        }
+                    });
+
+                    cell.style.whiteSpace = "normal";
+                    cell.style.overflow = "visible";
+                    cell.style.textOverflow = "unset";
                 });
+            });
+
+            // Kliknięcie poza komórkami = zwinięcie wszystkich
+            document.addEventListener('click', function (e) {
+                if (![...cells].includes(e.target)) {
+                    cells.forEach(cell => {
+                        cell.style.whiteSpace = "nowrap";
+                        cell.style.overflow = "hidden";
+                        cell.style.textOverflow = "ellipsis";
+                    });
+                }
             });
         });
     </script>
+
 
 }

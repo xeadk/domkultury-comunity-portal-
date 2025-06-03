@@ -558,6 +558,7 @@ footer {
 .admin-section {
     margin-bottom: 3rem;
     overflow-x: auto;
+    overflow: visible; /* zamiast auto/hidden, jeśli chcesz uniknąć obcięcia */
 }
 
     .admin-section h2 {
@@ -781,5 +782,90 @@ a.btn.btn-primary:contains("Dowiedz się więcej") {
         opacity: 1;
         padding: 1rem 1.5rem 1.5rem;
     }
+
+/* === Zarządzanie kontem (Identity UI) === */
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--deep-purple);
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--mid-purple);
+    margin-bottom: 1.5rem;
+}
+
+.manage-body {
+    background-color: var(--off-white);
+    border: 1px solid var(--lavender);
+    border-radius: 1rem;
+    min-height: 300px;
+}
+
+.manage-nav .nav-link {
+    background-color: var(--off-white);
+    color: var(--deep-purple);
+    border-radius: 0.6rem;
+    margin-bottom: 0.4rem;
+    padding: 0.6rem 1rem;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.2s, color 0.2s;
+    box-shadow: 0 1px 3px rgba(76,33,156,0.06);
+    text-align: left;
+}
+
+    .manage-nav .nav-link:hover {
+        background-color: rgba(126, 86, 245, 0.08); /* delikatny pastelowy fiolet */
+        color: var(--deep-purple); /* nie zmieniajmy koloru na biały – nie kontrastuje */
+        transform: scale(1.01);
+    }
+
+    .manage-nav .nav-link.active {
+        background-color: rgba(126, 86, 245, 0.15); /* lekko zaznaczony */
+        border-left: 4px solid var(--mid-purple);
+        color: var(--deep-purple);
+        font-weight: 600;
+    }
+
+/* zarzadzanie rolami */
+.roles-header {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--deep-purple);
+    margin-bottom: 1.2rem;
+    padding-left: 0.4rem;
+    position: relative;
+}
+
+.roles-card {
+    background-color: var(--off-white);
+    border: 2px solid var(--light-lavender);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 6px 18px rgba(76,33,156,0.08);
+    margin-top: 1.5rem;
+}
+
+    .roles-card .table {
+        margin-bottom: 0;
+    }
+
+    .roles-card .btn-primary {
+        background-color: var(--mid-purple);
+        border-color: var(--mid-purple);
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+    }
+
+        .roles-card .btn-primary:hover {
+            background-color: var(--deep-purple);
+        }
+
+
+
 
 
