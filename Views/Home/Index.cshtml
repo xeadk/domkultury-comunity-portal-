@@ -14,12 +14,21 @@
 </section>
 
 <!-- Pogoda -->
-<section class="container text-center">
-    <div class="weather-bar">
-        <img src="@($"https://openweathermap.org/img/wn/{Model.Pogoda.Icon}@2x.png")" alt="Pogoda" class="icon">
-        <span>Pogoda w @Model.Pogoda.City: <strong>@Model.Pogoda.Temperature°C</strong> | @Model.Pogoda.Description</span>
-    </div>
-</section>
+@if (Model.Pogoda != null)
+{
+    <section class="container text-center">
+        <div class="weather-bar">
+            <img src="@($"https://openweathermap.org/img/wn/{Model.Pogoda.Icon}@2x.png")" alt="Pogoda" class="icon">
+            <span>Pogoda w @Model.Pogoda.City: <strong>@Model.Pogoda.Temperature°C</strong> | @Model.Pogoda.Description</span>
+        </div>
+    </section>
+}
+else
+{
+    <section class="container text-center">
+        <div class="alert alert-warning">Nie udało się pobrać danych pogodowych.</div>
+    </section>
+}
 
 
 <!-- Zajęcia -->
