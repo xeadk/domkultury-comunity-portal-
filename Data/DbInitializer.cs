@@ -55,7 +55,7 @@ namespace DomKultury.Data
                     new Zajecie {
                         Nazwa = "Taniec nowoczesny",
                         Opis = "Zajęcia z tańca nowoczesnego",
-                        Termin = DateTime.Now.AddDays(5),
+                        Termin = DateTime.UtcNow.AddDays(5),
                         Lokalizacja = "Sala A",
                         Cena = 60m,
                         MaksymalnaLiczbaUczestnikow = 20,
@@ -66,7 +66,7 @@ namespace DomKultury.Data
                     new Zajecie {
                         Nazwa = "Plastyka dla dzieci",
                         Opis = "Zajęcia artystyczne",
-                        Termin = DateTime.Now.AddDays(7),
+                        Termin = DateTime.UtcNow.AddDays(7),
                         Lokalizacja = "Sala B",
                         Cena = 40m,
                         MaksymalnaLiczbaUczestnikow = 15,
@@ -91,7 +91,7 @@ namespace DomKultury.Data
             Nazwisko = "Kwiatkowski",
             Email = "mateusz@example.com",
             NumerTelefonu = "123456789",
-            DataRejestracji = DateTime.Now,
+            DataRejestracji = DateTime.UtcNow,
             Zajecia = new List<Zajecie> { zajecia[0] }
         },
         new Uczestnik {
@@ -99,7 +99,7 @@ namespace DomKultury.Data
             Nazwisko = "Zielińska",
             Email = "ola@example.com",
             NumerTelefonu = "987654321",
-            DataRejestracji = DateTime.Now,
+            DataRejestracji = DateTime.UtcNow,
             Zajecia = new List<Zajecie> { zajecia[1], zajecia[0] }
         }
     };
@@ -160,7 +160,7 @@ namespace DomKultury.Data
                         Nazwa = "Koncert jazzowy",
                         KategoriaId = context.Kategoria.First(k => k.Nazwa == "Muzyka").Id,
                         Organizator = "Dom Kultury",
-                        Data = DateTime.Now.AddDays(10),
+                        Data = DateTime.UtcNow.AddDays(10),
                         Lokalizacja = "Sala koncertowa",
                         Opis = "Wieczór z muzyką jazzową",
                         Status = true,
@@ -171,7 +171,7 @@ namespace DomKultury.Data
                         Nazwa = "Spektakl dla dzieci",
                         KategoriaId = context.Kategoria.First(k => k.Nazwa == "Teatr").Id,
                         Organizator = "Teatrzyk XYZ",
-                        Data = DateTime.Now.AddDays(15),
+                        Data = DateTime.UtcNow.AddDays(15),
                         Lokalizacja = "Sala teatralna",
                         Opis = "Wesoły spektakl dla najmłodszych",
                         Status = true,
