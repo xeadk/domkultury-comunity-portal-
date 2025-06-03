@@ -242,7 +242,7 @@ namespace DomKultury.Controllers
                 Nazwisko = model.Nazwisko,
                 Email = model.Email,
                 NumerTelefonu = model.NumerTelefonu,
-                DataRejestracji = DateTime.Now,
+                DataRejestracji = DateTime.UtcNow,
                 Zajecia = new List<Zajecie> { zajecie }
             };
 
