@@ -229,10 +229,7 @@ namespace DomKultury.Controllers
             if (wydarzenie == null)
                 return NotFound();
 
-            var deepPurple = "#4c219c";
-            var lavender = "#8759dc";
-            var offWhite = "#fbfafe";
-            var lightLavender = "#ad8de7";
+            var fiolet = "#4c219c";
 
             var document = Document.Create(container =>
             {
@@ -240,55 +237,68 @@ namespace DomKultury.Controllers
                 {
                     page.Margin(40);
                     page.Size(PageSizes.A4);
-                    page.PageColor(offWhite);
-                    page.DefaultTextStyle(x => x.FontSize(12).FontFamily("Segoe UI").FontColor(deepPurple));
+                    page.DefaultTextStyle(x => x.FontSize(12).FontFamily("Segoe UI"));
 
-                    // Nagłówek
                     page.Header()
-                        .AlignCenter()
-                        .Text("Potwierdzenie Rezerwacji Wydarzenia")
-                        .FontSize(18).Bold().FontColor(deepPurple);
+                        .Text(wydarzenie.Nazwa)
+                        .FontSize(20).Bold().AlignCenter().FontColor(fiolet);
 
-                    // Zawartość
-                    page.Content()
-                        .PaddingVertical(15)
-                        .Background(Colors.White)
-                        .Border(1)
-                        .BorderColor(lightLavender)
-                        .Column(col =>
+                    page.Content().PaddingVertical(10).Column(col =>
+                    {
+                        col.Spacing(8);
+
+                        col.Item().Text(text =>
                         {
-                            col.Spacing(10);
-
-                            col.Item().Text($"Nazwa wydarzenia: {wydarzenie.Nazwa}")
-                                .FontSize(13).Bold();
-
-                            col.Item().Text($"Kategoria: {wydarzenie.Kategoria?.Nazwa ?? "-"}");
-
-                            col.Item().Text($"Data: {wydarzenie.Data.ToString("dd.MM.yyyy")}");
-
-                            col.Item().Text($"Lokalizacja: {wydarzenie.Lokalizacja}");
-
-                            col.Item().Text($"Organizator: {wydarzenie.Organizator}");
-
-                            col.Item().Text($"Status: {(wydarzenie.Status ? "Zaplanowane" : "Odwołane")}");
-
+                            text.Span("Kategoria: ").Bold().FontColor(fiolet);
+                            text.Span(wydarzenie.Kategoria?.Nazwa ?? "-");
                         });
 
-                    // Stopka
+                        col.Item().Text(text =>
+                        {
+                            text.Span("Opis: ").Bold().FontColor(fiolet);
+                            text.Span(wydarzenie.Opis ?? "-");
+                        });
+
+                        col.Item().Text(text =>
+                        {
+                            text.Span("Rozszerzony opis: ").Bold().FontColor(fiolet);
+                            text.Span(wydarzenie.RozszerzonyOpis ?? "-");
+                        });
+
+                        col.Item().Text(text =>
+                        {
+                            text.Span("Data: ").Bold().FontColor(fiolet);
+                            text.Span(wydarzenie.Data.ToString("dd.MM.yyyy"));
+                        });
+
+                        col.Item().Text(text =>
+                        {
+                            text.Span("Lokalizacja: ").Bold().FontColor(fiolet);
+                            text.Span(wydarzenie.Lokalizacja ?? "-");
+                        });
+
+                        col.Item().Text(text =>
+                        {
+                            text.Span("Organizator: ").Bold().FontColor(fiolet);
+                            text.Span(wydarzenie.Organizator ?? "-");
+                        });
+
+                        col.Item().Text(text =>
+                        {
+                            text.Span("Status: ").Bold().FontColor(fiolet);
+                            text.Span(wydarzenie.Status ? "Zaplanowane" : "Odwołane");
+                        });
+                    });
+
                     page.Footer()
                         .AlignCenter()
-                        .Text(text =>
-                        {
-                            text.Span("Dokument wygenerowany automatycznie przez Dom Kultury")
-                                .FontSize(10)
-                                .Italic()
-                                .FontColor(lavender);
-                        });
+                        .Text("Dokument wygenerowany automatycznie przez Dom Kultury")
+                        .FontSize(10).Italic().FontColor("#8759dc");
                 });
             });
 
             byte[] pdfBytes = document.GeneratePdf();
-            return File(pdfBytes, "application/pdf", $"Rezerwacja_{wydarzenie.Nazwa}.pdf");
+            return File(pdfBytes, "application/pdf", $"Informacje_o_{wydarzenie.Nazwa}.pdf");
         }
 
     }
