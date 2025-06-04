@@ -1,63 +1,112 @@
 @model List<DomKultury.Models.Wydarzenie>
-
 @{
     ViewData["Title"] = "Wydarzenia";
 }
 
-<h2>Wydarzenia</h2>
+<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href="~/css/events.css" />
 
-<form method="get" class="mb-3">
-    <div class="form-group">
-        <label for="categoryFilter">Filtruj po kategorii</label>
-        <select id="categoryFilter" name="categoryId" class="form-control">
-            <option value="">Wybierz kategorię</option>
-            @foreach (var kategoria in ViewBag.Kategorie as List<DomKultury.Models.Kategoria>)
-            {
-                <option value="@kategoria.Id">@kategoria.Nazwa</option>
-            }
-        </select>
-    </div>
-    <button type="submit" class="btn btn-primary mt-3">Filtruj</button>
-</form>
-@if (User.IsInRole("Admin"))
-{
-    <a asp-action="Create" class="btn btn-primary mb-3">Dodaj nowe</a>
-}
-@if (Model.Any())
-{
-    <div class="row">
-        @foreach (var wydarzenie in Model)
+<div class="events-page">
+    <!-- Nagłówek -->
+    <header class="events-header">
+        <i class="bi bi-calendar3 text-primary fs-1"></i>
+        <h1>Wydarzenia</h1>
+        <p>Poznaj nadchodzące aktywności i spotkania</p>
+        @if (User.IsInRole("Admin"))
         {
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    @if (!string.IsNullOrEmpty(wydarzenie.ObrazekUrl))
-                    {
-                        <img src="@wydarzenie.ObrazekUrl" class="card-img-top" style="max-height: 200px; object-fit: cover;" alt="Zdjęcie wydarzenia">
-                    }
-                    <div class="card-body">
-                        <h5 class="card-title">@wydarzenie.Nazwa</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">@wydarzenie.Kategoria?.Nazwa</h6>
-                        <p class="card-text">@wydarzenie.Opis</p>
-                        <p><strong>Data:</strong> @wydarzenie.Data.ToString("dd.MM.yyyy")</p>
-                        <p><strong>Lokalizacja:</strong> @wydarzenie.Lokalizacja</p>
-                        <p><strong>Organizator:</strong> @wydarzenie.Organizator</p>
-                        <p><strong>Status:</strong> @(wydarzenie.Status ? "Zaplanowane" : "Odwołane")</p>
-                        <a asp-action="Szczegoly" asp-route-id="@wydarzenie.Id" class="btn btn-primary w-100 mb-2 dowiedz-sie-wiecej">Dowiedz się więcej</a>
-                       
-                        @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
-                        {
-                            <div class="d-flex justify-content-between">
-                                <a asp-action="Edit" asp-route-id="@wydarzenie.Id" class="btn btn-dark btn-sm">Edytuj</a>
-                                <a asp-action="Delete" asp-route-id="@wydarzenie.Id" class="btn btn-danger btn-sm">Usuń</a>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
+            <a asp-action="Create" class="btn btn-hero mt-3">
+                <i class="bi bi-plus-circle"></i> Dodaj wydarzenie
+            </a>
         }
+    </header>
+
+    <!-- Zawartość -->
+    <div class="events-content">
+        <!-- Panel filtrów -->
+        <aside class="filters">
+            <form method="get">
+                <label for="categoryFilter" class="form-label fw-bold text-secondary">Filtruj po kategorii</label>
+                <div class="input-group mb-3">
+                    <select id="categoryFilter" name="categoryId" class="form-select border">
+                        <option value="">Wszystkie kategorie</option>
+                        @foreach (var kategoria in ViewBag.Kategorie as List<DomKultury.Models.Kategoria>)
+                        {
+                            <option value="@kategoria.Id">@kategoria.Nazwa</option>
+                        }
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="bi bi-search"></i> Szukaj
+                </button>
+            </form>
+        </aside>
+
+        <!-- Lista wydarzeń -->
+        <main class="events-list">
+            @if (!Model.Any())
+            {
+                <div class="alert alert-warning text-center">Brak wydarzeń do wyświetlenia.</div>
+            }
+            else
+            {
+                @foreach (var wydarzenie in Model)
+                {
+                    <div class="list-group-item p-4 mb-3 rounded shadow-sm border-0">
+                        <div class="row">
+                            <!-- Obrazek -->
+                            <div class="col-md-3 text-center mb-3 mb-md-0 d-flex flex-column justify-content-center align-items-center">
+                                @if (!string.IsNullOrEmpty(wydarzenie.ObrazekUrl))
+                                {
+                                    <div class="position-relative" style="width: 100%; max-width: 160px; height: 160px;">
+                                        <img src="@wydarzenie.ObrazekUrl" alt="Zdjęcie wydarzenia"
+                                             class="img-fluid rounded"
+                                             style="width: 100%; height: 100%; object-fit: cover;" />
+                                        <div class="date-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center">
+                                            <strong class="fs-4 text-white">@wydarzenie.Data.ToString("dd")</strong>
+                                            <span class="d-block text-white">@wydarzenie.Data.ToString("MMM", new System.Globalization.CultureInfo("pl-PL")).ToUpper()</span>
+                                            <span class="d-block text-white">@wydarzenie.Data.ToString("yyyy")</span>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="bg-primary text-white px-3 py-2 rounded">
+                                        <strong class="fs-4">@wydarzenie.Data.ToString("dd")</strong>
+                                        <span class="d-block">@wydarzenie.Data.ToString("MMM", new System.Globalization.CultureInfo("pl-PL")).ToUpper()</span>
+                                        <span class="d-block">@wydarzenie.Data.ToString("yyyy")</span>
+                                    </div>
+                                }
+                            </div>
+
+                            <!-- Szczegóły -->
+                            <div class="col-md-9">
+                                <div class="d-flex justify-content-between flex-column flex-md-row mb-2">
+                                    <h4 class="mb-1 text-dark">@wydarzenie.Nazwa</h4>
+                                    <span class="badge bg-fiolet align-self-start">@wydarzenie.Kategoria?.Nazwa</span>
+                                </div>
+                                <p class="text-muted mb-1">
+                                    <i class="bi bi-geo-alt"></i> @wydarzenie.Lokalizacja
+                                </p>
+                                <p class="mb-3">@wydarzenie.Opis</p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <a asp-action="Szczegoly" asp-route-id="@wydarzenie.Id" class="btn btn-hero btn-sm">
+                                        <i class="bi bi-info-circle"></i> Szczegóły
+                                    </a>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@wydarzenie.Id" class="btn btn-outline-dark btn-sm">
+                                            <i class="bi bi-pencil"></i> Edytuj
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@wydarzenie.Id" class="btn btn-outline-danger btn-sm">
+                                            <i class="bi bi-trash"></i> Usuń
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </main>
     </div>
-}
-else
-{
-    <p>Brak zaplanowanych wydarzeń.</p>
-}
+</div>

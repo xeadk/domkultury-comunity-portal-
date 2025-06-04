@@ -1,0 +1,54 @@
+﻿h1 {
+    color: var(--deep-purple);
+}
+
+/* Główna siatka */
+.events-content {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+/* Filtry po lewej */
+.filters {
+    width: 250px;
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+/* Lista wydarzeń (prawa strona) */
+.events-list {
+    flex: 1;
+}
+
+
+
+/* Nagłówek wyśrodkowany */
+.events-header {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+    .events-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .events-header p {
+        font-size: 1.2rem;
+        color: #666;
+    }
+
+/* Styl filtrów (np. checkboxy, inputy) */
+.filters label,
+.filters input,
+.filters select {
+    display: block;
+    margin-bottom: 1rem;
+}
+
+/* Usuń efekt podnoszenia */
+.filters *:hover {
+    transform: none !important;
+}
