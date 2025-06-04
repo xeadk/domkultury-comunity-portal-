@@ -2,63 +2,67 @@
 @{
     ViewData["Title"] = "Edytuj wydarzenie";
 }
-
-<h2>Edytuj wydarzenie</h2>
-
-<form asp-action="Edit" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="Nazwa"></label>
-        <input asp-for="Nazwa" class="form-control" />
+<section class="container pt-4">
+    <div class="mb-4">
+        <h2 class="mb-0">Edytuj wydarzenie</h2>
     </div>
-
-    <div class="form-group">
-        <label asp-for="KategoriaId">Kategoria</label>
-        <select asp-for="KategoriaId" class="form-control" asp-items="@(new SelectList(ViewBag.Kategorie, "Id", "Nazwa"))"></select>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Organizator"></label>
-        <input asp-for="Organizator" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Data"></label>
-        <input asp-for="Data" type="date" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Lokalizacja"></label>
-        <input asp-for="Lokalizacja" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Opis"></label>
-        <textarea asp-for="Opis" class="form-control"></textarea>
-    </div>
-
-    <div class="form-group">
-        <label>Status</label><br />
-        <input asp-for="Status" type="checkbox" /> Zaplanowane
-    </div>
-
-    <div class="form-group">
-        <label>URL do obrazka</label>
-        <input type="text" name="ObrazekUrl" value="@Model.ObrazekUrl" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label>Upload obrazka z dysku</label>
-        <input type="file" name="Obrazek" class="form-control" />
-    </div>
-
-    @if (!string.IsNullOrEmpty(Model.ObrazekUrl))
-    {
-        <div class="mt-2">
-            <p>Podgląd:</p>
-            <img src="@Model.ObrazekUrl" style="max-width: 200px;" />
+    <form asp-action="Edit" method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-3">
+            <label asp-for="Nazwa" class="form-label"></label>
+            <input asp-for="Nazwa" class="form-control" />
+            <span asp-validation-for="Nazwa" class="text-danger"></span>
         </div>
-    }
-
-    <button type="submit" class="btn btn-primary">Zapisz</button>
-    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
-</form>
+        <div class="mb-3">
+            <label asp-for="KategoriaId" class="form-label">Kategoria</label>
+            <select asp-for="KategoriaId" class="form-control"
+                    asp-items="@(new SelectList(ViewBag.Kategorie, "Id", "Nazwa"))">
+            </select>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Organizator" class="form-label"></label>
+            <input asp-for="Organizator" class="form-control" />
+            <span asp-validation-for="Organizator" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Data" class="form-label"></label>
+            <input asp-for="Data" type="date" class="form-control" />
+            <span asp-validation-for="Data" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Lokalizacja" class="form-label"></label>
+            <input asp-for="Lokalizacja" class="form-control" />
+            <span asp-validation-for="Lokalizacja" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Opis" class="form-label"></label>
+            <textarea asp-for="Opis" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="mb-3 form-check">
+            <input asp-for="Status" type="checkbox" class="form-check-input" />
+            <label asp-for="Status" class="form-check-label">Zaplanowane</label>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">URL do obrazka</label>
+            <input type="text" name="ObrazekUrl" value="@Model.ObrazekUrl" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Upload obrazka z dysku</label>
+            <input type="file" name="Obrazek" class="form-control" />
+        </div>
+        @if (!string.IsNullOrEmpty(Model.ObrazekUrl))
+        {
+            <div class="mb-3">
+                <p>Podgląd:</p>
+                <img src="@Model.ObrazekUrl" class="img-fluid rounded shadow" style="max-width: 200px;" />
+            </div>
+        }
+        <div class="d-flex justify-content-between align-items-center">
+            <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+            <button type="submit" class="btn btn-hero">Zapisz zmiany</button>
+        </div>
+    </form>
+</section>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

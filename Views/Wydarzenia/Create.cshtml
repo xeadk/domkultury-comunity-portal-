@@ -3,84 +3,79 @@
     ViewData["Title"] = "Dodaj wydarzenie";
     var kategorie = ViewBag.Kategorie as List<DomKultury.Models.Kategoria>;
 }
-
-<h2>Dodaj wydarzenie</h2>
-
-<form asp-action="Create" method="post" enctype="multipart/form-data">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-    <div class="form-group">
-        <label asp-for="Nazwa"></label>
-        <input asp-for="Nazwa" class="form-control" />
-        <span asp-validation-for="Nazwa" class="text-danger"></span>
+<section class="container pt-4">
+    <div class="mb-4">
+        <h2 class="mb-0">Dodaj nowe wydarzenie</h2>
     </div>
-
-    <div class="form-group">
-        <label for="KategoriaNazwa">Kategoria</label>
-        <input type="text" name="KategoriaNazwa" class="form-control" list="kategorieList" />
-        <datalist id="kategorieList">
-            @if (kategorie != null)
-            {
-                foreach (var kat in kategorie)
-                {
-                    <option value="@kat.Nazwa"></option>
-                }
-            }
-        </datalist>
-        <span class="text-muted">Wybierz istniejącą lub wpisz nową kategorię</span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Organizator"></label>
-        <input asp-for="Organizator" class="form-control" />
-        <span asp-validation-for="Organizator" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Data"></label>
-        <input asp-for="Data" type="date" class="form-control" />
-        <span asp-validation-for="Data" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Lokalizacja"></label>
-        <input asp-for="Lokalizacja" class="form-control" />
-        <span asp-validation-for="Lokalizacja" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Opis"></label>
-        <textarea asp-for="Opis" class="form-control"></textarea>
-        <span asp-validation-for="Opis" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Status">Status</label><br />
-        <input asp-for="Status" type="checkbox" /> Zaplanowane
-        <span asp-validation-for="Status" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label>URL do obrazka</label>
-        <input type="text" name="ObrazekUrl" value="@Model.ObrazekUrl" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label>Upload obrazka z dysku</label>
-        <input type="file" name="Obrazek" class="form-control" />
-    </div>
-
-    @if (!string.IsNullOrEmpty(Model.ObrazekUrl))
-    {
-        <div class="mt-2">
-            <p>Podgląd:</p>
-            <img src="@Model.ObrazekUrl" style="max-width: 200px;" />
+    <form asp-action="Create" method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="mb-3">
+            <label asp-for="Nazwa" class="form-label"></label>
+            <input asp-for="Nazwa" class="form-control" />
+            <span asp-validation-for="Nazwa" class="text-danger"></span>
         </div>
-    }
-
-    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
-    <button type="submit" class="btn btn-primary">Zapisz</button>
-</form>
+        <div class="mb-3">
+            <label for="KategoriaNazwa" class="form-label">Kategoria</label>
+            <input type="text" name="KategoriaNazwa" class="form-control" list="kategorieList" />
+            <datalist id="kategorieList">
+                @if (kategorie != null)
+                {
+                    foreach (var kat in kategorie)
+                    {
+                        <option value="@kat.Nazwa"></option>
+                    }
+                }
+            </datalist>
+            <small class="form-text text-muted">
+                Wybierz istniejącą lub wpisz nową kategorię.
+            </small>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Organizator" class="form-label"></label>
+            <input asp-for="Organizator" class="form-control" />
+            <span asp-validation-for="Organizator" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Data" class="form-label"></label>
+            <input asp-for="Data" type="date" class="form-control" />
+            <span asp-validation-for="Data" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Lokalizacja" class="form-label"></label>
+            <input asp-for="Lokalizacja" class="form-control" />
+            <span asp-validation-for="Lokalizacja" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Opis" class="form-label"></label>
+            <textarea asp-for="Opis" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Opis" class="text-danger"></span>
+        </div>
+        <div class="mb-3 form-check">
+            <input asp-for="Status" type="checkbox" class="form-check-input" />
+            <label asp-for="Status" class="form-check-label">Zaplanowane</label>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">URL do obrazka</label>
+            <input type="text" name="ObrazekUrl" value="@Model.ObrazekUrl" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Upload obrazka z dysku</label>
+            <input type="file" name="Obrazek" class="form-control" />
+        </div>
+        @if (!string.IsNullOrEmpty(Model.ObrazekUrl))
+        {
+            <div class="mb-3">
+                <p>Podgląd:</p>
+                <img src="@Model.ObrazekUrl" class="img-fluid rounded shadow" style="max-width: 200px;" />
+            </div>
+        }
+        <div class="d-flex justify-content-between align-items-center">
+            <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+            <button type="submit" class="btn btn-hero">Zapisz</button>
+        </div>
+    </form>
+</section>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

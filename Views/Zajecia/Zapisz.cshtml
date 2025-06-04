@@ -1,37 +1,38 @@
 ﻿@model DomKultury.Models.ZapisViewModel
-
 @{
     ViewData["Title"] = "Zapisz się na zajęcia";
 }
+<link rel="stylesheet" href="~/css/site.css" />
+<link rel="stylesheet" href="~/css/events.css" />
 
-<h2>Zapisz się na zajęcia</h2>
-
-<form asp-action="Zapisz" asp-route-id="@Model.ZajecieId" method="post">
-    <input type="hidden" asp-for="ZajecieId" />
-
-    <div class="form-group">
-        <label asp-for="Imie"></label>
-        <input asp-for="Imie" class="form-control" />
-        <span asp-validation-for="Imie" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Nazwisko"></label>
-        <input asp-for="Nazwisko" class="form-control" />
-        <span asp-validation-for="Nazwisko" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="NumerTelefonu"></label>
-        <input asp-for="NumerTelefonu" class="form-control" />
-        <span asp-validation-for="NumerTelefonu" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Zapisz się</button>
-</form>
+<div class="container py-5">
+    <header class="text-center mb-4">
+        <h2 class="fw-bold text-deep-purple">Zapisz się na zajęcia</h2>
+    </header>
+    <form asp-action="Zapisz" asp-route-id="@Model.ZajecieId" method="post" class="card p-4 shadow-sm">
+        <input type="hidden" asp-for="ZajecieId" />
+        <div class="form-group mb-3">
+            <label asp-for="Imie" class="form-label"></label>
+            <input asp-for="Imie" class="form-control" />
+            <span asp-validation-for="Imie" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="Nazwisko" class="form-label"></label>
+            <input asp-for="Nazwisko" class="form-control" />
+            <span asp-validation-for="Nazwisko" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="NumerTelefonu" class="form-label"></label>
+            <input asp-for="NumerTelefonu" class="form-control" />
+            <span asp-validation-for="NumerTelefonu" class="text-danger"></span>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-hero">Zapisz się</button>
+        </div>
+    </form>
+</div>
