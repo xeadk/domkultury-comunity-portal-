@@ -2,6 +2,10 @@
 @{
     ViewData["Title"] = "Szczegóły wydarzenia";
 }
+@{
+    var canEdit = User.IsInRole("Admin") || User.IsInRole("Moderator");
+    var isEdit = ViewContext.HttpContext.Request.Query["edit"] == "1";
+}
 <section class="container pt-4">
     <div class="mb-4">
         <h2>@Model.Nazwa</h2>
@@ -15,15 +19,36 @@
                      class="img-fluid rounded shadow" />
             </div>
             <div class="col-md-6">
-                <div class="card p-4">
-                    <p><strong>Kategoria:</strong> @Model.Kategoria?.Nazwa</p>
-                    <p><strong>Opis:</strong> @Model.Opis</p>
-                    <p><strong>Rozszerzony Opis:</strong> @Model.RozszerzonyOpis</p>
-                    <p><strong>Data:</strong> @Model.Data.ToString("dd.MM.yyyy")</p>
-                    <p><strong>Lokalizacja:</strong> @Model.Lokalizacja</p>
-                    <p><strong>Organizator:</strong> @Model.Organizator</p>
-                    <p><strong>Status:</strong> @(Model.Status ? "Zaplanowane" : "Odwołane")</p>
-                </div>
+                @if (canEdit && isEdit)
+                {
+                    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="card p-4 w-100" style="max-width:900px;">
+                        <div class="mb-3">
+                            <label asp-for="RozszerzonyOpis" class="form-label"></label>
+                            <textarea asp-for="RozszerzonyOpis" class="form-control" rows="10" style="min-height:200px;"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Zapisz</button>
+                        <a asp-action="Szczegoly" asp-route-id="@Model.Id" class="btn btn-secondary">Anuluj</a>
+                    </form>
+                }
+                else
+                {
+                    <div class="card p-4">
+                        <p><strong>Kategoria:</strong> @Model.Kategoria?.Nazwa</p>
+                        <p><strong>Opis:</strong> @Model.Opis</p>
+                        <p><strong>Rozszerzony Opis:</strong> @Model.RozszerzonyOpis</p>
+                        <p><strong>Data:</strong> @Model.Data.ToString("dd.MM.yyyy")</p>
+                        <p><strong>Lokalizacja:</strong> @Model.Lokalizacja</p>
+                        <p><strong>Organizator:</strong> @Model.Organizator</p>
+                        <p><strong>Status:</strong> @(Model.Status ? "Zaplanowane" : "Odwołane")</p>
+                        @if (canEdit)
+                        {
+                            <a asp-action="Szczegoly" asp-route-id="@Model.Id" asp-route-edit="1" class="btn btn-outline-dark mt-2">Edytuj</a>
+                        }
+                    </div>
+                }
+
+            
+            
                 <div class="mt-3">
                     <form asp-controller="Wydarzenia" asp-action="GenerujPDF" method="post">
                         <input type="hidden" name="wydarzenieId" value="@Model.Id" />
@@ -41,7 +66,39 @@
                 <div class="card p-4">
                     <p><strong>Kategoria:</strong> @Model.Kategoria?.Nazwa</p>
                     <p><strong>Opis:</strong> @Model.Opis</p>
-                    <p><strong>Rozszerzony Opis:</strong> @Model.RozszerzonyOpis</p>
+                    @if (canEdit && isEdit)
+{
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="card p-4">
+        <div class="mb-3">
+            <label asp-for="Nazwa" class="form-label"></label>
+            <input asp-for="Nazwa" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Opis" class="form-label"></label>
+            <textarea asp-for="Opis" class="form-control"></textarea>
+        </div>
+        <div class="mb-3">
+            <label asp-for="RozszerzonyOpis" class="form-label"></label>
+            <textarea asp-for="RozszerzonyOpis" class="form-control"></textarea>
+        </div>
+        <!-- Dodaj pozostałe pola -->
+        <button type="submit" class="btn btn-success">Zapisz</button>
+        <a asp-action="Szczegoly" asp-route-id="@Model.Id" class="btn btn-secondary">Anuluj</a>
+    </form>
+}
+else
+{
+    <div class="card p-4">
+        <p><strong>Kategoria:</strong> @Model.Kategoria?.Nazwa</p>
+        <p><strong>Opis:</strong> @Model.Opis</p>
+        <p><strong>Rozszerzony Opis:</strong> @Model.RozszerzonyOpis</p>
+        <!-- Pozostałe pola -->
+        @if (canEdit)
+        {
+            <a asp-action="Szczegoly" asp-route-id="@Model.Id" asp-route-edit="1" class="btn btn-outline-dark mt-2">Edytuj</a>
+        }
+    </div>
+}
                     <p><strong>Data:</strong> @Model.Data.ToString("dd.MM.yyyy")</p>
                     <p><strong>Lokalizacja:</strong> @Model.Lokalizacja</p>
                     <p><strong>Organizator:</strong> @Model.Organizator</p>

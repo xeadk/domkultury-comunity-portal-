@@ -5,20 +5,25 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace DomKultury.Controllers
 {
     [Route("Zajecia")]
     public class ZajeciaController : Controller
     {
+        private readonly UserManager<IdentityUser> _userManager;
+
         private readonly WydarzeniaContext _context;
         private readonly IWebHostEnvironment _env;
 
-        public ZajeciaController(WydarzeniaContext context, IWebHostEnvironment env)
+        public ZajeciaController(WydarzeniaContext context, IWebHostEnvironment env, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _env = env;
+            _userManager = userManager;
         }
+
 
         // GET: Zajecia
         [HttpGet("")]
@@ -178,21 +183,31 @@ namespace DomKultury.Controllers
 
         // GET: Zajecia/Zapisz/1
         [HttpGet("Zapisz/{id}")]
-        public IActionResult Zapisz(int id)
+        public async Task<IActionResult> Zapisz(int id)
         {
             var zajecie = _context.Zajecie.FirstOrDefault(z => z.Id == id);
             if (zajecie == null)
-            {
                 return NotFound();
-            }
 
             var model = new ZapisViewModel
             {
                 ZajecieId = zajecie.Id
             };
 
-            return View(model);
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user != null)
+                {
+                    model.Email = user.Email;
+                }
+            }
+
+            return View(model); // <-- to jest OK
         }
+
+
+
 
         // POST: Zajecia/Zapisz/1
         [HttpPost("Zapisz/{id}")]
