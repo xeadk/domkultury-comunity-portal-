@@ -11,10 +11,10 @@ namespace DomKultury.Data
     {
         public static void Seed(WydarzeniaContext context, RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
-            //context.Database.EnsureDeleted();
-            //context.Database.EnsureCreated();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
 
-            context.Database.Migrate();
+            //context.Database.Migrate();
 
             // ===== ROLĘ =====
             var roles = new[] { "Admin", "Uzytkownik" };
