@@ -78,9 +78,19 @@
                                 }
                             </ul>
                             <div class="d-flex flex-wrap gap-2">
-                                <a asp-action="Zapisz" asp-route-id="@zajecie.Id" class="btn btn-hero btn-sm">
-                                    <i class="bi bi-pencil-square"></i> Zapisz się
-                                </a>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <a asp-action="Zapisz" asp-route-id="@zajecie.Id" class="btn btn-hero btn-sm">
+                                        <i class="bi bi-pencil-square"></i> Zapisz się
+                                    </a>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-hero btn-sm" onclick="alert('Aby zapisać się na zajęcia, proszę się zalogować!')">
+                                        <i class="bi bi-pencil-square"></i> Zapisz się
+                                    </button>
+                                }
+
                                 <a asp-action="Szczegoly" asp-route-id="@zajecie.Id" class="btn btn-hero btn-sm">
                                     <i class="bi bi-info-circle"></i> Szczegóły
                                 </a>

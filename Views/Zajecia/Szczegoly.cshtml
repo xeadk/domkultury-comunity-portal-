@@ -1,6 +1,8 @@
 ﻿@model DomKultury.Models.Zajecie
 @{
     ViewData["Title"] = "Szczegóły zajęć";
+    var canEdit = User.IsInRole("Admin") || User.IsInRole("Moderator");
+    var isEdit = ViewContext.HttpContext.Request.Query["edit"] == "1";
 }
 <link rel="stylesheet" href="~/css/site.css" />
 <link rel="stylesheet" href="~/css/events.css" />
@@ -16,29 +18,67 @@
                 <img src="@Model.ObrazekUrl" class="img-fluid rounded shadow" alt="Obrazek zajęć" />
             </div>
             <div class="col-md-6">
-                <div class="card p-4">
-                    <p><strong>Opis:</strong> @Model.Opis</p>
-                    <p><strong>Rozszerzony opis:</strong> @Model.RozszerzonyOpis</p>
-                    <p><strong>Termin:</strong> @Model.Termin.ToString("dd.MM.yyyy HH:mm")</p>
-                    <p><strong>Lokalizacja:</strong> @Model.Lokalizacja</p>
-                    <p><strong>Cena:</strong> @Model.Cena.ToString("C")</p>
-                    <p><strong>Maks. uczestników:</strong> @Model.MaksymalnaLiczbaUczestnikow</p>
-                    <p><strong>Prowadzący:</strong> @Model.Instruktor?.Imie @Model.Instruktor?.Nazwisko</p>
-                </div>
+                @if (canEdit && isEdit)
+                {
+                    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="card p-4 w-100" style="max-width:900px;">
+
+                        <div class="mb-3">
+                            <label asp-for="RozszerzonyOpis" class="form-label"></label>
+                            <textarea asp-for="RozszerzonyOpis" class="form-control" rows="8"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Zapisz</button>
+                        <a asp-action="Szczegoly" asp-route-id="@Model.Id" class="btn btn-secondary">Anuluj</a>
+               
+                    </form>
+                }
+                else
+                {
+                    <div class="card p-4">
+                        <p><strong>Opis:</strong> @Model.Opis</p>
+                        <p><strong>Rozszerzony opis:</strong> @Model.RozszerzonyOpis</p>
+                        <p><strong>Termin:</strong> @Model.Termin.ToString("dd.MM.yyyy HH:mm")</p>
+                        <p><strong>Lokalizacja:</strong> @Model.Lokalizacja</p>
+                        <p><strong>Cena:</strong> @Model.Cena.ToString("C")</p>
+                        <p><strong>Maks. uczestników:</strong> @Model.MaksymalnaLiczbaUczestnikow</p>
+                        <p><strong>Prowadzący:</strong> @Model.Instruktor?.Imie @Model.Instruktor?.Nazwisko</p>
+                        @if (canEdit)
+                        {
+                            <a asp-action="Szczegoly" asp-route-id="@Model.Id" asp-route-edit="1" class="btn btn-outline-dark mt-2">Edytuj</a>
+                        }
+                    </div>
+                }
             </div>
         }
         else
         {
             <div class="col-12">
-                <div class="container py-5">
-                    <p><strong>Opis:</strong> @Model.Opis</p>
-                    <p><strong>Rozszerzony opis:</strong> @Model.RozszerzonyOpis</p>
-                    <p><strong>Termin:</strong> @Model.Termin.ToString("dd.MM.yyyy HH:mm")</p>
-                    <p><strong>Lokalizacja:</strong> @Model.Lokalizacja</p>
-                    <p><strong>Cena:</strong> @Model.Cena.ToString("C")</p>
-                    <p><strong>Maks. uczestników:</strong> @Model.MaksymalnaLiczbaUczestnikow</p>
-                    <p><strong>Prowadzący:</strong> @Model.Instruktor?.Imie @Model.Instruktor?.Nazwisko</p>
-                </div>
+                @if (canEdit && isEdit)
+                {
+                    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="card p-4 w-100" style="max-width:900px;">
+                        
+                        <div class="mb-3">
+                            <label asp-for="RozszerzonyOpis" class="form-label"></label>
+                            <textarea asp-for="RozszerzonyOpis" class="form-control" rows="8"></textarea>
+                        </div>
+                        
+                    </form>
+                }
+                else
+                {
+                    <div class="card p-4">
+                        <p><strong>Opis:</strong> @Model.Opis</p>
+                        <p><strong>Rozszerzony opis:</strong> @Model.RozszerzonyOpis</p>
+                        <p><strong>Termin:</strong> @Model.Termin.ToString("dd.MM.yyyy HH:mm")</p>
+                        <p><strong>Lokalizacja:</strong> @Model.Lokalizacja</p>
+                        <p><strong>Cena:</strong> @Model.Cena.ToString("C")</p>
+                        <p><strong>Maks. uczestników:</strong> @Model.MaksymalnaLiczbaUczestnikow</p>
+                        <p><strong>Prowadzący:</strong> @Model.Instruktor?.Imie @Model.Instruktor?.Nazwisko</p>
+                        @if (canEdit)
+                        {
+                            <a asp-action="Szczegoly" asp-route-id="@Model.Id" asp-route-edit="1" class="btn btn-outline-dark mt-2">Edytuj</a>
+                        }
+                    </div>
+                }
             </div>
         }
     </div>
