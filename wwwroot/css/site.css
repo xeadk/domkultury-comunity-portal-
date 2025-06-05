@@ -77,15 +77,25 @@ h1 {
     color: var(--deep-purple) !important;
 }
 
-/* Przyciski */
+/* Podstawowy styl przycisku */
 .btn-primary {
     background-color: var(--lavender);
     border-color: var(--lavender);
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease; /* Animacje */
 }
 
+    /* Efekt hover - subtelne zwiększenie cienia */
     .btn-primary:hover {
-        background-color: var(--lavender);
-        border-color: var(--lavender);
+        background-color: var(--light-lavender);
+        border-color: var(--light-lavender);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Delikatny cień */
+        transform: scale(1.02); /* Lekkie powiększenie */
+    }
+
+    /* Efekt kliknięcia - delikatne wciśnięcie */
+    .btn-primary:active {
+        transform: scale(0.98); /* Minimalne wciśnięcie */
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Zmniejszony cień */
     }
 
 /* Hero sekcja */
