@@ -24,3 +24,14 @@ Wykorzystane biblioteki:Add commentMore actions
     wersja: 8.0.11
 12. QuestPDF
     wersja: 2025.5.0
+
+
+## Technologie
+
+- .NET 8 / .NET Core
+- ASP.NET Core MVC
+- Entity Framework Core
+- Razor Pages
+- SQL Server / SQLite (do wyboru)
+- Bootstrap (styling)
+- Visual Studio 2022
