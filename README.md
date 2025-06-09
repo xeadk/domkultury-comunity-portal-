@@ -1,4 +1,5 @@
-Wykorzystane biblioteki:
+Nasz projekt po pobraniu repozytorium z GitHub do Visual Studio 2022 jest gotowy do uruchomienia. Wszystkie pakiety i biblioteki pobierają się automatycznie wraz z pobraniem projektu. Jeśli ktoś ma wyłączoną opcję automatycznego pobierania bibliotek i nie chce jej włączać to, aby uruchomić nasz projekt powinien pobrać następujące biblioteki: 
+Wykorzystane biblioteki:Add commentMore actions
 1. Microsoft.AspNetCore.Identity.EntityFrameworkCore
    wersja: 8.0.14
 2. Microsoft.AspNetCore.Identity.UI
