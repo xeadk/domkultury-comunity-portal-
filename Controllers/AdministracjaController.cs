@@ -55,7 +55,24 @@ namespace DomKultury.Controllers
             return RedirectToAction(nameof(ManageRoles)); // Zwróć przekierowanie po zakończeniu
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return NotFound();
 
+            await _userManager.DeleteAsync(user);
+            // Zwróć zaktualizowany widok, nie przekierowuj
+            var users = _userManager.Users.ToList();
+            var roles = _roleManager.Roles.ToList();
+            var model = new ManageRolesViewModel
+            {
+                Users = users,
+                Roles = roles
+            };
+            return RedirectToAction(nameof(ManageRoles));
+        }
 
 
         public IActionResult Index()

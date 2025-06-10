@@ -11,6 +11,7 @@
                 <th>Użytkownik</th>
                 <th>Obecna rola</th>
                 <th>Nowa rola</th>
+                <th>Akcje</th>
             </tr>
         </thead>
         <tbody>
@@ -34,8 +35,15 @@
                             <button type="submit" class="btn btn-primary mt-2">Zapisz</button>
                         </form>
                     </td>
+                    <td>
+                        <form asp-action="DeleteUser" method="post" onsubmit="return confirm('Czy na pewno chcesz usunąć tego użytkownika?');">
+                            <input type="hidden" name="userId" value="@user.Id" />
+                            <button type="submit" class="btn btn-danger">Usuń</button>
+                        </form>
+                    </td>
                 </tr>
             }
         </tbody>
+
     </table>
 </div>
