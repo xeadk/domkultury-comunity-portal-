@@ -9,11 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<WydarzeniaContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DomKulturyDB")));
-
 //builder.Services.AddDbContext<WydarzeniaContext>(options =>
-//options.UseNpgsql(builder.Configuration.GetConnectionString("DomKulturyDB")));
+//options.UseSqlServer(builder.Configuration.GetConnectionString("DomKulturyDB")));
+
+builder.Services.AddDbContext<WydarzeniaContext>(options =>
+options.UseNpgsql(builder.Configuration.GetConnectionString("DomKulturyDB")));
 
 builder.Services.AddMemoryCache(); //buildery sesji
 builder.Services.AddSession(options =>
