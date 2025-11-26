@@ -1,4 +1,4 @@
-# DomKultury — Community Portal (English)
+# DomKultury — Community Portal 
 
 Simple community/cultural center portal for managing events, classes, and users. Built with ASP.NET Core (.NET 8), Entity Framework Core, and Identity.
 
